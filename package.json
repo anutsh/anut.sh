@@ -20,5 +20,11 @@
 
     "bugs": {
         "url": "https://github.com/jdavis/ducking-dubstep/issues"
+    },
+
+    "dependencies": {
+        "consolidate": "~0.9",
+        "express": "~3.3",
+        "swig": "0.14"
     }
 }
