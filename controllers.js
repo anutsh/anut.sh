@@ -1,4 +1,5 @@
 var shortener = require('./shortener');
+var redis = require('redis').createClient();
 
 exports.index = function (req, res) {
     var context = {
