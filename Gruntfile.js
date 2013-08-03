@@ -15,6 +15,13 @@ module.exports = function (grunt) {
                 jshintrc: '.jshintrc',
             },
         },
+
+        watch: {
+            scripts: {
+                files: './**/*.js',
+                tasks: ['jshint'],
+            },
+        },
     });
 
     //
