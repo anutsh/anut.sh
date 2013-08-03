@@ -6,13 +6,6 @@ exports.index = function (req, res) {
     res.render('index', context);
 };
 
-exports.submit = function (req, res) {
-    var url = "http://google.com";
-    var message = "success";
-
-    res.json(200,{
-        'message': message,
-        'url': url,
-
-    });
+exports.create = function(req, res) {
+    res.json(200, { url: '/our-generated-url'});
 };

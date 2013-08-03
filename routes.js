@@ -4,13 +4,13 @@ var routes = [
     {
         url: '/',
         handler: controllers.index,
-        method: 'get',
+        method: 'get'
     },
     {
         url: '/',
-        handler: controllers.submit,
-        method: 'post',
-    },
+        handler: controllers.create,
+        method: 'post'
+    }
 ];
 
 // Dynamically setups the routing for each route
