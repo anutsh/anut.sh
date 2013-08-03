@@ -6,6 +6,11 @@ var routes = [
         handler: controllers.index,
         method: 'get',
     },
+    {
+        url: '/',
+        handler: controllers.submit,
+        method: 'post',
+    },
 ];
 
 // Dynamically setups the routing for each route
