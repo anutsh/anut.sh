@@ -10,16 +10,22 @@ exports.index = function (req, res) {
 
 exports.submit = function (req, res) {
     var url = req.body.url;
-
-    var article = extractor.extract(url);
-    var terms = extractor.tfidf(article);
-
     var message = "success";
 
-    console.log('Terms = ' + terms);
+    console.log(url);
 
-    res.json(200,{
-        'message': message,
-        'url': extractor.create(terms),
+    if (!url) {
+        var err = {'msg': 'No url given'};
+        res.json(400, err);
+    }
+
+    extractor.extract(url, function (article) {
+        extractor.tfidf(article.s, function (terms) {
+            console.log('Terms = ' + terms);
+            res.json(200,{
+                'message': message,
+                'url': extractor.create(terms),
+            });
+        });
     });
 };

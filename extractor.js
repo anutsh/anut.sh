@@ -1,17 +1,20 @@
 var fs = require('fs'),
     readability = require('readability'),
     natural = require('natural'),
-    request = require('request');
+    request = require('request'),
+    S = require('string');
 
-exports.extract = function (url) {
+exports.extract = function (url, cb) {
+    console.log('parsing url = ' + url);
     var content = request(url, function (err, res, body) {
-        readability.parse(body, url, function (article) {
-            return article;
+        readability.parse(body, url, function (result) {
+            var article = S(result.content).stripTags();
+            cb.call(this, article);
         });
-    })
-}
+    });
+};
 
-exports.tfidf = function (article) {
+exports.tfidf = function (article, cb) {
     var TfIdf = natural.TfIdf,
         tfidf = new TfIdf(),
         terms = [];
@@ -19,9 +22,11 @@ exports.tfidf = function (article) {
     // Add our article
     tfidf.addDocument(article);
 
-    return tfidf.listTerms(0).splice(10);
-}
+    cb.call(this, ['common', 'words', 'here']);
+};
 
 exports.create = function (terms) {
-    return terms.splice(3).join('-');
-}
+    var end = terms.length > 5 ? 5 : terms.length;
+
+    return terms.splice(0, 5).join('-');
+};
