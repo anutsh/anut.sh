@@ -5,16 +5,15 @@
 
     <title>{{ title }} - Name here</title>
     <link rel="stylesheet" href="/css/base.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css" type="text/css" media="all" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
     {% block css %}{% endblock %}
 </head>
 <body>
     <div class="top">
-        <h1>It lives.</h1>
     </div>
     {% block content %}{% endblock %}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="/lib/js/bootstrap.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
     <script src="/js/app.js"></script>
     {% block js %}{% endblock %}
 </body>
