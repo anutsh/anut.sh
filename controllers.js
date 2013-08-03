@@ -1,3 +1,5 @@
+var extractor = require('./extractor');
+
 exports.index = function (req, res) {
     var context = {
         'title': "Homepage",
@@ -7,12 +9,13 @@ exports.index = function (req, res) {
 };
 
 exports.submit = function (req, res) {
-    var url = "http://google.com";
+    var url = "http://en.wikipedia.org/wiki/Nodejs";
     var message = "success";
+
+    var article = extractor.extract(url);
 
     res.json(200,{
         'message': message,
-        'url': url,
-
+        'url': extractor.tfidf(article),
     });
 };
