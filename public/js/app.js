@@ -33,6 +33,7 @@ $(function() {
             url: '/',
             type: 'post',
             data: {
+                url: $inputUrl.val()
             },
             success: successCallbacks,
             error: errorCallbacks
