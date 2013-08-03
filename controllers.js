@@ -1,4 +1,4 @@
-var extractor = require('./extractor');
+var shortener = require('./shortener');
 
 exports.index = function (req, res) {
     var context = {
@@ -14,18 +14,12 @@ exports.submit = function (req, res) {
 
     console.log(url);
 
-    if (!url) {
-        var err = {'msg': 'No url given'};
-        res.json(400, err);
-    }
+    shortener.shorten(url, function (terms, err) {
+        if (err) res.json(400, {message: err});
 
-    extractor.extract(url, function (article) {
-        extractor.tfidf(article.s, function (terms) {
-            console.log('Terms = ' + terms);
-            res.json(200,{
-                'message': message,
-                'url': extractor.create(terms),
-            });
+        res.json(200,{
+            'message': message,
+            'url': terms
         });
     });
 };

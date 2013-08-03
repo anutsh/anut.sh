@@ -2,9 +2,22 @@ var fs = require('fs'),
     readability = require('readability'),
     natural = require('natural'),
     request = require('request'),
-    S = require('string');
+    S = require('string'),
+    shortener = {};
 
-exports.extract = function (url, cb) {
+shortener.shorten = function (url, cb) {
+    if (!url) {
+        cb.call(this, 'invalid url');
+    }
+
+    shortener.extract(url, function (article) {
+        shortener.tfidf(article.s, function (terms) {
+            cb.call(this, shortener.create(terms), undefined);
+        });
+    });
+}
+
+shortener.extract = function (url, cb) {
     console.log('parsing url = ' + url);
     var content = request(url, function (err, res, body) {
         readability.parse(body, url, function (result) {
@@ -14,7 +27,7 @@ exports.extract = function (url, cb) {
     });
 };
 
-exports.tfidf = function (article, cb) {
+shortener.tfidf = function (article, cb) {
     var TfIdf = natural.TfIdf,
         tfidf = new TfIdf(),
         terms = [];
@@ -25,8 +38,9 @@ exports.tfidf = function (article, cb) {
     cb.call(this, ['common', 'words', 'here']);
 };
 
-exports.create = function (terms) {
+shortener.create = function (terms) {
     var end = terms.length > 5 ? 5 : terms.length;
-
-    return terms.splice(0, 5).join('-');
+    return terms.splice(0, end).join('-');
 };
+
+exports.shorten = shortener.shorten;
