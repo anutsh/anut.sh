@@ -1,11 +1,14 @@
 var fs = require('fs'),
     readability = require('readability'),
-    natural = require('natural');
+    natural = require('natural'),
+    request = require('request');
 
-exports.extract = function (content) {
-    readability.parse(url, function (article) {
-        return result;
-    });
+exports.extract = function (url) {
+    var content = request(url, function (err, res, body) {
+        readability.parse(body, url, function (article) {
+            return article;
+        });
+    })
 }
 
 exports.tfidf = function (article) {
@@ -17,4 +20,8 @@ exports.tfidf = function (article) {
     tfidf.addDocument(article);
 
     return tfidf.listTerms(0).splice(10);
+}
+
+exports.create = function (terms) {
+    return terms.splice(3).join('-');
 }

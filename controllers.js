@@ -13,9 +13,12 @@ exports.submit = function (req, res) {
     var message = "success";
 
     var article = extractor.extract(url);
+    var terms = extractor.tfidf(article);
+
+    console.log('Terms = ' + terms);
 
     res.json(200,{
         'message': message,
-        'url': extractor.tfidf(article),
+        'url': extractor.create(terms),
     });
 };

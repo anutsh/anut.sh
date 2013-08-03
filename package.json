@@ -35,6 +35,7 @@
         "express": "~3.3",
         "readability": "~0.1.0",
         "swig": "0.14",
-        "natural": "0.1.21"
+        "natural": "0.1.21",
+        "request": "~2.25.0"
     }
 }
