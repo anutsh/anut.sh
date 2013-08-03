@@ -1,0 +1,8 @@
+# Hide Vim files
+*.sw[po]
+
+# No logs
+*.log
+
+# Don't include any npm packages
+node_modules/
