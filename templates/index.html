@@ -1,10 +1,10 @@
-<header>
-	<h1>Shorten your URL</h1>
-</header>
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Shorten your URL</h1>
 
 <div>
-	<form>
-	Enter your URL: <input type="text" name="inputURL"><br>
-	</form>
-
+	Enter your URL: 
+    <input id="inputUrl" type="text"/><br> 
 </div>
+{% endblock %}
