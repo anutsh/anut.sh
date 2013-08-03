@@ -5,6 +5,7 @@
 
     <title>{{ title }} - Name here</title>
     <link rel="stylesheet" href="/css/base.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css" type="text/css" media="all" />
     {% block css %}{% endblock %}
 </head>
 <body>
@@ -13,7 +14,8 @@
     </div>
     {% block content %}{% endblock %}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="/js/app.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/lib/js/bootstrap.js"></script>
+    <script src="/js/app.js"></script>
     {% block js %}{% endblock %}
 </body>
 </html>
