@@ -6,23 +6,27 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>Shorten your URL</h1>
-<div>
+<div class = "container">
+	<div class="row">
+		<div class="col-lg-6 col-lg-offset-3">
 	Enter your URL: <input type="text" id="inputURL" name="inputURL" width="300px">
 	<button type="button">Convert!</button>
 	<!--should be a spinner right here-->
 	<ul>
 	<li> <input type="text" id="shortURL1" name="shortURL1">
-		<button type="button" id="copy1" name="copy1">Copy!</button>
+	<button type="button" id="copy1" name="copy1">Copy!</button>
 	</li>
 	<li> <input type="text" id="shortURL2" name="shortURL2">
-		<button type="button" id="copy1" name="copy1">Copy!</button>
+	<button type="button" id="copy1" name="copy1">Copy!</button>
 	</li>
 	<li> <input type="text" id="shortURL3" name="shortURL3">
-		<button type="button" id="copy1" name="copy1">Copy!</button>
+	<button type="button" id="copy1" name="copy1">Copy!</button>
 	</li>
 	</ul>
 	<div class ="boxed">
-		<label id="URLDesc" name="URLDesc"></label>
+	<label id="URLDesc" name="URLDesc"></label>
+	</div>
+	</div>
 	</div>
 </div>
 {% endblock %}
