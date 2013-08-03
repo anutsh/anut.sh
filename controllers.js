@@ -8,6 +8,14 @@ exports.index = function (req, res) {
     res.render('index', context);
 };
 
-exports.create = function(req, res) {
-    res.json(200, { url: '/our-generated-url'});
+exports.submit = function (req, res) {
+    var url = "http://en.wikipedia.org/wiki/Nodejs";
+    var message = "success";
+
+    var article = extractor.extract(url);
+
+    res.json(200,{
+        'message': message,
+        'url': extractor.tfidf(article),
+    });
 };
