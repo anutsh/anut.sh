@@ -1,9 +1,31 @@
 $(function() {
     var $convertButton = $('#convert');
-    var $inputUrl = $('#inputUrl');
+    var $inputUrl = $('#inputURL');
+
+    function onShortUrlSuccess(data) {
+        console.log('data = ' + JSON.stringify(data));
+        return;
+    }
+
+    function onShortUrlError(jqXHR) {
+    }
+
+    function ajax(success, error) {
+        var successCallbacks = [];
+        var errorCallbacks = [];
+        $.ajax({
+            url: '/',
+            type: 'post',
+            data: {
+            },
+            success: successCallbacks,
+            error: errorCallbacks
+        });
+    }
 
     function handleUrlChange() {
         console.log('inputUrl.text = ' + $inputUrl.val());
+        ajax(onShortUrlSuccess, onShortUrlError);
     }
 
     $inputUrl.on('paste', function() {
