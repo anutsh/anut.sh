@@ -11,8 +11,6 @@ exports.index = function (req, res) {
 exports.submit = function (req, res) {
     var url = req.body.url;
 
-    console.log(url);
-
     var article = extractor.extract(url);
     var terms = extractor.tfidf(article);
 
