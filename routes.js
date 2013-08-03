@@ -8,7 +8,7 @@ var routes = [
     },
     {
         url: '/',
-        handler: controllers.create,
+        handler: controllers.submit,
         method: 'post'
     }
 ];
