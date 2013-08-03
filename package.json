@@ -1,0 +1,24 @@
+{
+    "name": "ducking-dubstep",
+    "version": "0.0.1",
+    "description": "Facebook Seattle Summer 2013 Hackathon Project",
+    "main": "server.js",
+
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/jdavis/ducking-dubstep.git"
+    },
+
+    "author": "",
+    "license": "MIT",
+    "readmeFilename": "README.md",
+    "gitHead": "cacde63fb32161e37f79886d7e1ec09fe399ff73",
+
+    "bugs": {
+        "url": "https://github.com/jdavis/ducking-dubstep/issues"
+    }
+}
