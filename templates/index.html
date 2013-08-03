@@ -1,16 +1,21 @@
+<head>
+<style type="text/css">
+body{
+	font-family: arial,verdana;
+	line-height: 17px;
+
 .boxed{
 	border: 1px solid black;
 	height: 50px;
 	width: 200px;	
 }
-
-<header>
-	<h1>Shorten your URL</h1>
-</header>
-
+</style>
+</head>
+<body align="center">
+<h1>Shorten your URL</h1>
 <div>
 	<form>
-	Enter your URL: <input type="text" id="inputURL" name="inputURL"><br>
+	Enter your URL: <input type="text" id="inputURL" name="inputURL">
 	<button type="button">Convert!</button>
 	<!--should be a spinner right here-->
 	</form>
@@ -26,7 +31,8 @@
 	</li>
 	</ul>
 	<div class ="boxed">
-		<img src="blahblah.jpg" alt="url thumbnail" id="urlThumbnail"></img>
+	<img src="blahblah.jpg" alt="url thumbnail" id="urlThumbnail"></img>
 		<label id="URLDesc" name="URLDesc"></label>
 	</div>
 </div>
+</body>
