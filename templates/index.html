@@ -1,24 +1,10 @@
-<head>
-<style type="text/css">
-body{
-	font-family: arial,verdana;
-	line-height: 17px;
-
-.boxed{
-	border: 1px solid black;
-	height: 50px;
-	width: 200px;	
-}
-</style>
-</head>
-<body align="center">
+{% extends 'base.html' %}
+{% block content %}
 <h1>Shorten your URL</h1>
 <div>
-	<form>
 	Enter your URL: <input type="text" id="inputURL" name="inputURL">
 	<button type="button">Convert!</button>
 	<!--should be a spinner right here-->
-	</form>
 	<ul>
 	<li> <input type="text" id="shortURL1" name="shortURL1">
 		<button type="button" id="copy1" name="copy1">Copy!</button>
@@ -35,4 +21,4 @@ body{
 		<label id="URLDesc" name="URLDesc"></label>
 	</div>
 </div>
-</body>
+{% endblock %}
