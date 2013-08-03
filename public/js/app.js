@@ -40,15 +40,14 @@ $(function() {
     }
 
     function handleUrlChange() {
-        console.log('inputUrl.text = ' + $inputUrl.val());
         ajax(onShortUrlSuccess, onShortUrlError);
     }
 
-    // DOM element event handlers
+    // **** DOM element event handlers ***
     $inputUrl.on('paste', function() {
         // need a small timeout to let input 
         // element catch up
-        setTimeout(handleUrlChange, 100);
+        setTimeout(handleUrlChange, 200);
     });
     $inputUrl.on('keypress', handleUrlChange);
 
