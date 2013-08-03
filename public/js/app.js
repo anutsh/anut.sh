@@ -26,11 +26,11 @@ $(function () {
             corners: 1,
         },
         done: function() {
-            loading.spinner = new Spinner(loading.spinOpts);
             loading.spinner.stop();
             $inputUrl.attr('disabled', false);
         },
         start: function() {
+            loading.spinner = new Spinner(loading.spinOpts);
             loading.spinner.spin(loading.target);
             $inputUrl.attr('disabled', true);
         }

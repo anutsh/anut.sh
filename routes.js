@@ -10,6 +10,11 @@ var routes = [
         url: '/',
         handler: controllers.submit,
         method: 'post'
+    },
+    {
+        url: '/:alias',
+        handler: controllers.redirect,
+        method: 'get'
     }
 ];
 

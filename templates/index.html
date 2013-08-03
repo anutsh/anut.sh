@@ -6,17 +6,28 @@
 {% endblock %}
 
 {% block content %}
-    <div class="header">
-        <h1>Shorten your URL</h1>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-6 col-lg-offset-3">
-            <form>
-                Enter your URL: <input id="url" type="text" name="url" />
-                <input id="submit" type="submit" value="Submit" /><br />
-                <div id="spinner"></div>
-            </form>
+    <h1>Shorten your URL</h1>
+    <div class = "container">
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3">
+                Enter your URL: <input type="text" id="url" name="inputURL" width="300px">
+                <button id="submit" type="button">Convert!</button>
+                <!--should be a spinner right here-->
+                <ul>
+                    <li> <input type="text" id="shortURL1" name="shortURL1">
+                    <button type="button" id="copy1" name="copy1">Copy!</button>
+                    </li>
+                    <li> <input type="text" id="shortURL2" name="shortURL2">
+                    <button type="button" id="copy1" name="copy1">Copy!</button>
+                    </li>
+                    <li> <input type="text" id="shortURL3" name="shortURL3">
+                    <button type="button" id="copy1" name="copy1">Copy!</button>
+                    </li>
+                </ul>
+                <pre>
+            <label id="URLDesc" name="URLDesc" text="this is url description"></label>
+                </pre>
+            </div>
         </div>
     </div>
 {% endblock %}
