@@ -1,6 +1,10 @@
-$(function() {
-    var $convertButton = $('#convert');
-    var $inputUrl = $('#inputURL');
+$(function () {
+    var $convertButton = $('#submit');
+    var $inputUrl = $('#url');
+
+    var options = {
+        delay: 350,
+    };
 
     function onShortUrlSuccess(data) {
         console.log('data = ' + JSON.stringify(data));
@@ -10,13 +14,24 @@ $(function() {
     function onShortUrlError(jqXHR) {
     }
 
-    // Eventually this will be a 'loading' spinner or 
+    // Eventually this will be a 'loading' spinner or
     // something
     var loading = {
+        target: document.getElementById('spinner'),
+        spinOpts:  {
+            lines: 13,
+            length: 20,
+            width: 10,
+            radius: 30,
+            corners: 1,
+        },
         done: function() {
+            loading.spinner = new Spinner(loading.spinOpts);
+            loading.spinner.stop();
             $inputUrl.attr('disabled', false);
         },
         start: function() {
+            loading.spinner.spin(loading.target);
             $inputUrl.attr('disabled', true);
         }
     };
@@ -29,6 +44,7 @@ $(function() {
         if (error) { errorCallbacks.push(error); }
 
         loading.start();
+
         $.ajax({
             url: '/',
             type: 'post',
@@ -41,15 +57,13 @@ $(function() {
     }
 
     function handleUrlChange() {
+        console.log('Url change!');
         ajax(onShortUrlSuccess, onShortUrlError);
     }
 
     // **** DOM element event handlers ***
-    $inputUrl.on('paste', function() {
-        // need a small timeout to let input 
-        // element catch up
-        setTimeout(handleUrlChange, 200);
+    $inputUrl.search({
+        search: handleUrlChange,
+        delay: options.delay,
     });
-    $inputUrl.on('keypress', handleUrlChange);
-
 });
