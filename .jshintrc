@@ -1,0 +1,13 @@
+{
+    "jquery": true,
+    "node": true,
+
+    "boss": true,
+    "eqeqeq": true,
+    "forin": true,
+    "immed": true,
+    "latedef": true,
+    "newcap": true,
+    "sub": true,
+    "undef": true
+}
