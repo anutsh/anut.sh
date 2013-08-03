@@ -78,6 +78,6 @@ routes.setup(app);
 //
 
 http.createServer(app).listen(app.get('port'), app.get('host'), function(){
-    console.log('The sleeper has awakened.')
+    console.log('The sleeper has awakened.');
     console.log('Running: ' + app.get('host') + ':' + app.get('port'));
 });
