@@ -9,8 +9,9 @@ exports.index = function (req, res) {
 };
 
 exports.submit = function (req, res) {
-    var jsonObj = JSON.parse(req.param("jsonData"));
-    var url = jsonObj.url;
+    var url = req.body.url;
+
+    console.log(url);
 
     var article = extractor.extract(url);
     var terms = extractor.tfidf(article);
