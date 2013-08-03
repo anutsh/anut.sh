@@ -33,6 +33,8 @@
     "dependencies": {
         "consolidate": "~0.9",
         "express": "~3.3",
-        "swig": "0.14"
+        "node-readability": "~0.0.8",
+        "swig": "0.14",
+        "natural": "0.1.21"
     }
 }

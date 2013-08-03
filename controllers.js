@@ -1,3 +1,5 @@
+var extractor = require('./extractor');
+
 exports.index = function (req, res) {
     var context = {
         'title': "Homepage",
