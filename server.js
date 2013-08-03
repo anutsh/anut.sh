@@ -54,7 +54,7 @@ app.configure(function (){
     app.use(express.methodOverride());
 
     // Server up static data
-    app.use(express.static(path.join(__dirname, 'public')));
+    app.use(express.static(path.join(__dirname, 'public/')));
 
     app.use(app.router);
 });
