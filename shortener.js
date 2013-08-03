@@ -7,7 +7,7 @@ var fs = require('fs'),
 
 shortener.shorten = function (url, cb) {
     if (!url) {
-        cb.call(this, 'invalid url');
+        cb.call(this, undefined, 'invalid url');
     }
 
     shortener.extract(url, function (article) {

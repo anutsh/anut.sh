@@ -15,7 +15,7 @@ exports.submit = function (req, res) {
     console.log(url);
 
     shortener.shorten(url, function (url, err) {
-        if (err) res.json(400, {message: err});
+        if (err) res.json(400, { 'message': err });
 
         res.json(200,{
             'message': message,
