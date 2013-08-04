@@ -6,14 +6,14 @@ $(function () {
         $ul = $('.links ul'),
         $tag = $('#tag'),
         $status = $('#status'),
-        $nut = $('.logo .nut'),
+        $nut = $('.logo .nut img'),
         links = 0;
 
     var options = {
         host: 'http://anut.sh/',
         taglineChange: 5,
-        nutShake: 7,
-        nutAnimation: 5,
+        nutShake: 3,
+        nutAnimation: 4,
         submit: '/',
         delay: 350,
     };
@@ -164,9 +164,13 @@ $(function () {
 		var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
     	return regexp.test(url);
 	}, shakeNuts = function () {
-        $nut.addClass('animated');
+        var timeout;
+        console.log('Shaking nuts');
+        $nut.addClass('swing');
 
-        var timeout = setTimeout(function () {
+        timeout = setTimeout(function () {
+            $nut.removeClass('swing');
+            console.log('Removing animation');
             clearTimeout(timeout);
         }, options.nutAnimation);
     };
@@ -181,6 +185,8 @@ $(function () {
     });
 
     $btn.click(submit.press);
+
+    //$nut.hover(shakeNuts);
 
     //
     // Setup Timeouts
