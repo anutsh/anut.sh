@@ -59,23 +59,33 @@ shortener.shorten = function (url, cb) {
         cb.call(this, undefined, 'invalid url');
     }
 
-    shortener.extract(url, function (article) {
-        shortener.filter(article, function(words) {
+    shortener.extract(url, function (article, err) {
+        if (err) cb.call(this, undefined, err);
+
+        shortener.filter(article, function(words, err) {
+            if (err) cb.call(this, undefined, err);
+
             shortener.tfidf(words, function (sortedScoreMap) {
-                cb.call(this, shortener.create(sortedScoreMap), undefined);
+                cb.call(this, shortener.create(sortedScoreMap));
             });
         });
     });
 };
 
 shortener.extract = function (url, cb) {
-    restler.get(url).on('complete', function (body) {
+    restler.get(url).on('complete', function (data, response) {
+        if (response !== 201) {
+            cb.call(this, undefined, 'invalid url');
+            return;
+        }
+
         var tagRegex = /(<([^>]+)>)/ig;
-        var article = body.replace(tagRegex, "<>");
+        var article = response.replace(tagRegex, "<>");
         var textRegex = /[a-zA-Z]+?[^<>/()\n\r]+?([a-zA-Z]+\s){3}[^<>/()\n\r]+/g;
         var match = article.match(textRegex);
-        if (!match) {
-        }
+
+        if (!match) { }
+
         article = match.join(" ");
         article = article.replace(/[^-_a-zA-Z\']+?/g, " ");
         article = article.replace(/[ ]+/g, " ");
@@ -85,6 +95,8 @@ shortener.extract = function (url, cb) {
 
 // Filter the plaintext content of the article
 shortener.filter = function (content, cb) {
+    if (!content) return cb.call(this, 'no content');
+
     var tokenizer = new natural.WordTokenizer();
     var terms = tokenizer.tokenize(content);
     cb.call(this, terms);
@@ -93,7 +105,7 @@ shortener.filter = function (content, cb) {
 // Perform TFIDF on terms (list of words)
 shortener.tfidf = function (words, cb) {
     var freqMapObject = getFrequencyMap(words);
-    tfidf.getScoreMap(freqMapObject.frequencyMap, 
+    tfidf.getScoreMap(freqMapObject.frequencyMap,
             freqMapObject.totalTermCount, function(scoreMap) {
                 cb.call(this, getSortedScoreMap(scoreMap));
             });
