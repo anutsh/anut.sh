@@ -43,8 +43,8 @@ exports.submit = function (req, res) {
                     });
                     console.log('shortener shorten callback about to save newUrl = ' + JSON.stringify(newUrl));
                     newUrl.save(function(err) {
-                        if (err) { 
-                            console.log('error saving to mongodb' + JSON.stringify(err)); 
+                        if (err) {
+                            console.log('error saving to mongodb' + JSON.stringify(err));
                             return res.status(500, {message: 'error saving data'});
                         } else {
                             console.log('mongo should have created doc with destinationUrl ' + newUrl.destinationUrl);
