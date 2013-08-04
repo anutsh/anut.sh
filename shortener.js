@@ -86,8 +86,8 @@ function getMostImportantWords(sortedFrequencyMap) {
 shortener.tfidf = function (words, cb) {
     var frequencyMap = getFrequencyMap(words);
     var scoreMap = getScoreMap(frequencyMap);
-    var sortedFrequencyMap = getSortedFrequencyMap(scoreMap);
-    cb.call(this, getMostImportantWords(sortedFrequencyMap));
+    var sortedScoreMap = getSortedFrequencyMap(scoreMap);
+    cb.call(this, getMostImportantWords(sortedScoreMap));
 };
 
 // @TODO - make this awesomer
