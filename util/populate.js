@@ -52,7 +52,24 @@ var urls = [
     'http://torrentfreak.com/2919-movie-pirates-walk-free-as-bittorrent-trolling-scheme-falls-apart-130802/',
     'http://www.wired.com/underwire/2013/08/xkcd-time-comic/',
     'http://spritesmods.com/?art=hddhack',
-    'http://nerdydata.tumblr.com/post/57308630996/how-we-found-all-of-optimizleys-clients'
+    'http://nerdydata.tumblr.com/post/57308630996/how-we-found-all-of-optimizleys-clients',
+    'http://www.reddit.com/r/seattle',
+    'http://www.reddit.com/r/uiuc',
+    'http://www.reddit.com/r/all',
+    'http://www.reddit.com/',
+    'http://blog.reddit.com/',
+    'http://docs.mongodb.org/manual/reference/method/db.collection.findOne/',
+    'http://www.youtube.com/watch?v=RIdlHTX12FI',
+    'http://www.youtube.com/watch?v=stYbwbiD7MA',
+    'http://www.youtube.com/watch?v=HnMI1a_6y30',
+    'http://www.youtube.com/user/PsyStarcraft?feature=watch',
+    'http://www.youtube.com/',
+    'https://www.facebook.com/',
+    'http://www.cnn.com/',
+    'http://www.cnn.com/video/?/video/us/2013/08/04/newday-sot-venice-car-crash.cnn',
+    'http://www.cnn.com/2013/08/02/health/rehab-racket-siu-cir-part-four/index.html?hpt=hp_t1',
+    'https://github.com/',
+    'http://docs.mongodb.org/manual/data-modeling/'
 ];
 
 function makeRequests(urls) {
