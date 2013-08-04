@@ -5,9 +5,11 @@ $(function () {
         $links = $('.links'),
         $ul = $('.links ul'),
         $tag = $('#tag'),
-        $result = $('#result');
+        $result = $('#result'),
+        links = 0;
 
     var options = {
+        taglineChange: 10,
         submit: '/',
         delay: 350,
     };
@@ -41,13 +43,17 @@ $(function () {
         }
     }, submit = {
         press: function () {
-            var $this = $(this),
-                links = $this.data('links') || 0;
+            var $this = $(this);
 
             console.log('Submit button pressed');
 
-            if (links === 1) {
-                $links.children('p').text('how do these look?')
+            if (links === 0) {
+                $result.text(nutshell.ask(links));
+            } else {
+                $result.fadeOut(400, function () {
+                    $result.text(nutshell.ask(links));
+                    $result.fadeIn(400);
+                });
             }
 
             $links.removeClass('hide');
@@ -118,6 +124,11 @@ $(function () {
         error: function (data) {
             console.log('silent error');
         },
+    }, tagline = function () {
+        $tag.fadeOut(400, function () {
+            $tag.text(nutshell.tag());
+            $tag.fadeIn(400);
+        });
     };
 
     //
@@ -130,4 +141,10 @@ $(function () {
     });
 
     $btn.click(submit.press);
+
+    //
+    // Setup Timeouts
+    //
+
+    setTimeout(tagline, options.taglineChange * 1000);
 });

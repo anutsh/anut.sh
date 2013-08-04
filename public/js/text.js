@@ -6,7 +6,7 @@
 			"like this nut?",
 			"that looks delicious",
 			"doesn't this look good?",
-			"I like it, don't you",		
+			"I like it, don't you",
         ],
         multiple: [
             "can i ever satisfy you?",
@@ -29,13 +29,13 @@
 			"flying squirrels can be nocturnal.",
 			"did you know that ducks also eat acorns?",
 			"pigs and bears also eat nuts.",
-        ];
+			"flying squirrels can be nocturnal",
+        ],
     };
 
     var tag = [
         "hey, i like your nuts.",
         "squirrels use this, why don't you?",
-        "bitly ain't got nothing on this.",
 		"have you ever tried these nuts?",
 		"would you like some nuts?",
 		"come here I have some good nuts for you.",
@@ -43,6 +43,8 @@
 		"here, I'll share some of my nuts with you.",
 		"you should try some of these nuts.",
 		"\"try me.\"",
+        "bit.ly ain't got nothing on these nuts",
+        "how do you like them apple nuts?",
     ];
 
     var random = function (n) {
@@ -52,11 +54,18 @@
     root.nutshell = {};
 
     root.nutshell.ask = function (n) {
-        var x = random();
+        var tagline;
 
+        if (n === 1) {
+            tagline = ask.first[random(ask.first.length)];
+        } else {
+            tagline = ask.multiple[random(ask.multiple.length)];
+        }
 
+        return tagline
     };
 
-    root.nutshell.tag = function (n) {
+    root.nutshell.tag = function () {
+        return tag[random(tag.length)];
     };
 }(window));
