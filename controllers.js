@@ -15,6 +15,12 @@ exports.submit = function (req, res) {
 
     console.log(url);
 
+    redis.get('testKey', function (err,res) {
+        console.log(res.toString());
+    });
+
+    console.log("reading key-value");
+
     shortener.shorten(url, function (url, err) {
         if (err) res.json(400, { 'message': err });
 
@@ -29,6 +35,6 @@ exports.redirect = function (req, res) {
     alias = req.params.alias;
     
     //TODO: url = getUrl(alias);
-    url = "http://google.com";
+    var url = "http://google.com";
     res.redirect(url);
 };
