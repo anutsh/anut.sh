@@ -27,7 +27,7 @@ exports.submit = function (req, res) {
         }
         if (url) {
             return res.json(200, {
-                url: url.destinationUrl,
+                url: url.destinationUrl.toLowerCase(),
                 message: 'success'
             });
         } else {
@@ -39,17 +39,19 @@ exports.submit = function (req, res) {
                 } else {
                     var newUrl = new Url({
                         sourceUrl: sourceUrl,
-                        destinationUrl: destinationUrl
+                        destinationUrl: destinationUrl.toLowerCase()
                     });
+                    console.log('shortener shorten callback about to save newUrl = ' + JSON.stringify(newUrl));
                     newUrl.save(function(err) {
                         if (err) { 
                             console.log('error saving to mongodb' + JSON.stringify(err)); 
                             res.status(500);
                             return res.end();
                         } else {
+                            console.log('mongo should have created doc with destinationUrl ' + newUrl.destinationUrl);
                             return res.json(200, {
                                 message: message,
-                                url: destinationUrl
+                                url: destinationUrl.toLowerCase()
                             });
                         }
                     });
@@ -62,7 +64,7 @@ exports.submit = function (req, res) {
 exports.redirect = function (req, res) {
     var destinationUrl = req.params.destinationUrl;
     console.log('destinationUrl = ' + destinationUrl);
-    Url.findOne({destinationUrl: destinationUrl}, function(err, url) {
+    Url.findOne({destinationUrl: destinationUrl.toLowerCase()}, function(err, url) {
         console.log('redirect findOne err = ' + err + ' url = ' + JSON.stringify(url));
         if (url) {
             return res.redirect(url.sourceUrl);
