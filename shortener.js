@@ -51,6 +51,11 @@ function getFrequencyMap(words) {
     return frequencyMap;
 }
 
+function getScoreMap(frequencyMap) {
+    // @TODO: run tfidf.getScores(frequencyMap);
+    return frequencyMap;
+}
+
 function getsSortedScoreMap(scoreMap) {
     // Runtime: O(n*log(n)) where n = number of keys in scoreMap
     var values = Object.values(scoreMap);
@@ -80,7 +85,8 @@ function getMostImportantWords(sortedFrequencyMap) {
 // Perform TFIDF on terms (list of words)
 shortener.tfidf = function (words, cb) {
     var frequencyMap = getFrequencyMap(words);
-    var sortedFrequencyMap = getSortedFrequencyMap(frequencyMap);
+    var scoreMap = getScoreMap(frequencyMap);
+    var sortedFrequencyMap = getSortedFrequencyMap(scoreMap);
     cb.call(this, getMostImportantWords(sortedFrequencyMap));
 };
 
