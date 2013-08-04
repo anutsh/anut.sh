@@ -41,11 +41,8 @@ exports.submit = function (req, res) {
                 destinationUrl: url
             });
             newUrl.save(function saveUrl(err) {
-                console.log('saving newUrl');
                 if (err) {
                     console.log('error saving new url ' + JSON.stringify(err));
-                    res.status(500);
-                    return res.end();
                 }
                 return res.json(200, {
                     'message': message,
