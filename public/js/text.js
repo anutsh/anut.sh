@@ -48,8 +48,9 @@
         "how do you like them apple nuts?",
 		"nutify your URL.",
     ];
+
 	var err = [
-		"thata is not a valid url.",
+		"that is not a valid url.",
 		"give me something better.",
 		"do you want my nut or not?",
 		"hey, that is not what I expected.",
@@ -57,13 +58,18 @@
 		"is this a joke? that's not a url.",
 		"i'll keep my nuts to myself.",
 	];
+
 	var nopage = [
-		"are you sure you burried that there?",
+		"are you sure you buried that there?",
 		"we couldn't find your page...",
 		"sorry, I just don't have any nuts for you.",
 		"I can't seem to find my nuts.",
 		"where could my nuts be....",
 		"I think you are asking for something ridiculous.",
+        "hahahah... wait, you were serious?"
+        "talk to the tail, because the nut doesn't want to."
+        "i seem to have lost my tree.",
+        "that's a crazy place for a web page.",
 	];
     var random = function (n) {
         return Math.floor(Math.random() * n);
