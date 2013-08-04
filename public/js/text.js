@@ -57,6 +57,14 @@
 		"is this a joke? that's not a url.",
 		"i'll keep my nuts to myself.",
 	];
+	var nopage = [
+		"are you sure you burried that there?",
+		"we couldn't find your page...",
+		"sorry, I just don't have any nuts for you.",
+		"I can't seem to find my nuts.",
+		"where could my nuts be....",
+		"I think you are asking for something ridiculous.",
+	];
     var random = function (n) {
         return Math.floor(Math.random() * n);
     };
@@ -82,4 +90,7 @@
     root.nutshell.error = function () {
         return err[random(err.length)];
     }
+	root.nutshell.nopage = function () {
+		return nopage[random(nopage.length)];
+	}
 }(window));
