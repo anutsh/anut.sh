@@ -1,15 +1,6 @@
 var tfidf = require('../tfidf');
 var redis = require('redis').createClient();
 
-var documents = [];
-documents.push({
-    'one': 1,
-    'two': 1,
-    'three': 1,
-    'four': 5
-});
-
-
 function runTest() {
     var totalTermCount = 0;
     for (var prop in documents[documents.length - 1]) {
@@ -19,19 +10,22 @@ function runTest() {
     }
     tfidf.getScores(documents[documents.length-1], totalTermCount, function(scores) {
         var fail = false;
-        for (var param in scores) {
-            if (scores.hasOwnProperty(param)) {
-                if (param !== 'four' && 
-                    scores[param] >= scores.four) {
-                    fail = true;
-                }
-            }
+        if (scores.one !== scores.two || scores.one !== scores.three || scores.one !== scores.four) {
+            fail = true;
         }
         var success = (fail === false);
         console.log('Test has pased: ' + success);
         process.exit(success);
     });
 }
+
+var documents = [];
+documents.push({
+    'one': 1,
+    'two': 1,
+    'three': 1,
+    'four': 1
+});
 
 var keysServiced = 0;
 for (var key in documents[documents.length - 1]) {
@@ -46,3 +40,4 @@ for (var key in documents[documents.length - 1]) {
         })(key);
     }
 }
+
