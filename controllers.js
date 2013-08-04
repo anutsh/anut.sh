@@ -26,14 +26,12 @@ exports.submit = function (req, res) {
             return res.end();
         }
         if (url) {
-            console.log('already have ' + sourceUrl + ' in Mongo, returning cached contextual url');
             return res.json(200, {
                 'message': message,
                 'url': url.destinationUrl
             });
         }
         shortener.shorten(sourceUrl, function (url, err) {
-            console.log('shortener.shorten callback');
             if (err) {
                 return res.json(400, { 'message': err });
             }
@@ -42,14 +40,16 @@ exports.submit = function (req, res) {
                 destinationUrl: url
             });
             newUrl.save(function saveUrl(err) {
-                console.log('newurl save callback');
                 if (err) {
                     console.log('error saving new url ' + JSON.stringify(err));
+                    res.status(500);
+                    return res.end();
+                } else {
+                    return res.json(200, {
+                        'message': message,
+                        'url': url
+                    });
                 }
-                return res.json(200, {
-                    'message': message,
-                    'url': url
-                });
             });
         });
     });
@@ -57,12 +57,11 @@ exports.submit = function (req, res) {
 
 exports.redirect = function (req, res) {
     var destinationUrl = req.params.destinationUrl;
-    console.log('redirect destinationUrl = ' + destinationUrl);
     Url.findOne({destinationUrl: destinationUrl}, function(err, url) {
         if (err) {
             console.log('redirect error err = ' + JSON.stringify(err));
         }
-        console.log('url = ' + JSON.stringify(url));
+        console.log('url findone url = ' + JSON.stringify(url));
         if (url) {
             return res.redirect(url.sourceUrl);
         }
