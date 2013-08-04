@@ -5,6 +5,8 @@ var fs = require('fs'),
     tfidf = require('./tfidf'),
     shortener = {};
 
+var NUM_TOKENS_TO_CONCAT = 6;
+
 function getFrequencyMap(words) {
     var frequencyMap = {};
     var totalTermCount = 0;
@@ -37,7 +39,7 @@ function getSortedScoreMap(scoreMap) {
 
 // Get the first N most 'important' words and place them in 'mostImportantWords' array
 function getImportantTerms(sortedScoreMap) {
-    var sortedScoreSubset = sortedScoreMap.splice(1,4);
+    var sortedScoreSubset = sortedScoreMap.splice(1,NUM_TOKENS_TO_CONCAT);
     var importantTerms = [];
     for (var i = 0; i < sortedScoreSubset.length; i++) {
         importantTerms.push(sortedScoreSubset[i][0]);
@@ -58,11 +60,8 @@ shortener.shorten = function (url, cb) {
     }
 
     shortener.extract(url, function (article) {
-        console.log('extract callback');
         shortener.filter(article, function(words) {
-            console.log('filter callback');
             shortener.tfidf(words, function (sortedScoreMap) {
-                console.log('tfidf callback');
                 cb.call(this, shortener.create(sortedScoreMap), undefined);
             });
         });
@@ -70,7 +69,6 @@ shortener.shorten = function (url, cb) {
 };
 
 shortener.extract = function (url, cb) {
-    console.log('extract');
     restler.get(url).on('complete', function (body) {
         var tagRegex = /(<([^>]+)>)/ig;
         var article = body.replace(tagRegex, "<>");
@@ -87,7 +85,6 @@ shortener.extract = function (url, cb) {
 
 // Filter the plaintext content of the article
 shortener.filter = function (content, cb) {
-    console.log('filter');
     var tokenizer = new natural.WordTokenizer();
     var terms = tokenizer.tokenize(content);
     cb.call(this, terms);
@@ -95,11 +92,9 @@ shortener.filter = function (content, cb) {
 
 // Perform TFIDF on terms (list of words)
 shortener.tfidf = function (words, cb) {
-    console.log('tfidf');
     var freqMapObject = getFrequencyMap(words);
     tfidf.getScoreMap(freqMapObject.frequencyMap, 
             freqMapObject.totalTermCount, function(scoreMap) {
-                console.log('getScoreMap callback');
                 cb.call(this, getSortedScoreMap(scoreMap));
             });
 };

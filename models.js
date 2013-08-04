@@ -2,14 +2,14 @@ exports.setup = function(db) {
     var Url = new db.Schema({
         sourceUrl: {
             type: String,
-            unique: true,
+            unique: false,
             required: true,
             lowercase: true,
             index: true
         },
         destinationUrl: {
             type: String,
-            unique: true,
+            unique: false,
             required: true,
             lowercase: true,
             index: true
