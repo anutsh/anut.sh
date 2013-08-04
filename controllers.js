@@ -20,52 +20,56 @@ exports.submit = function (req, res) {
 
     console.log('processing ' + sourceUrl);
     Url.findOne({sourceUrl: sourceUrl}, function(err, url) {
+        console.log('submit Url.findOne url = ' + url + ' err = ' + JSON.stringify(err));
         if (err) {
             console.log('err getting url');
             res.status(500);
             return res.end();
         }
         if (url) {
-            return res.json(200, {
-                'message': message,
-                'url': url.destinationUrl
-            });
-        }
-        shortener.shorten(sourceUrl, function (url, err) {
-            if (err) {
-                return res.json(400, { 'message': err });
-            }
-            var newUrl = new Url({
-                sourceUrl: sourceUrl,
-                destinationUrl: url
-            });
-            newUrl.save(function saveUrl(err) {
-                if (err) {
-                    console.log('error saving new url ' + JSON.stringify(err));
+            return res.redirect(url.destinationUrl);
+        } else {
+            console.log('about to shorten.shorten on sourceUrl = ' + sourceUrl);
+            shortener.shorten(sourceUrl, function(destinationUrl, err) {
+                if (!destinationUrl) {
+                    console.log('destinationUrl is null!');
                     res.status(500);
                     return res.end();
                 } else {
-                    return res.json(200, {
-                        'message': message,
-                        'url': url
+                    var newUrl = new Url({
+                        sourceUrl: sourceUrl,
+                        destinationUrl: destinationUrl
+                    });
+                    newUrl.save(function(err) {
+                        if (err) { 
+                            console.log('error saving to mongodb' + JSON.stringify(err)); 
+                            res.status(500);
+                            return res.end();
+                        } else {
+                            return res.json(200, {
+                                message: message,
+                                url: destinationUrl
+                            });
+                        }
                     });
                 }
             });
-        });
+        }
     });
 };
 
 exports.redirect = function (req, res) {
     var destinationUrl = req.params.destinationUrl;
+    console.log('destinationUrl = ' + destinationUrl);
     Url.findOne({destinationUrl: destinationUrl}, function(err, url) {
         if (err) {
-            console.log('redirect error err = ' + JSON.stringify(err));
+        } else {
+            if (url) {
+                return res.json(200, {
+                    message: 'success',
+                    url: destinationUrl
+                });
+            }
         }
-        console.log('url findone url = ' + JSON.stringify(url));
-        if (url) {
-            return res.redirect(url.sourceUrl);
-        }
-        res.status(404);
-        return res.end();
     });
 };

@@ -56,14 +56,14 @@ shortener.create = function (sortedScoreMap) {
 
 shortener.shorten = function (url, cb) {
     if (!url) {
-        cb.call(this, undefined, 'invalid url');
+        return cb.call(this, undefined, 'invalid url');
     }
 
     shortener.extract(url, function (article, err) {
-        if (err) cb.call(this, undefined, err);
+        if (err) return cb.call(this, undefined, err);
 
         shortener.filter(article, function(words, err) {
-            if (err) cb.call(this, undefined, err);
+            if (err) return cb.call(this, undefined, err);
 
             shortener.tfidf(words, function (sortedScoreMap) {
                 cb.call(this, shortener.create(sortedScoreMap));
@@ -74,13 +74,13 @@ shortener.shorten = function (url, cb) {
 
 shortener.extract = function (url, cb) {
     restler.get(url).on('complete', function (data, response) {
-        if (response !== 201) {
-            cb.call(this, undefined, 'invalid url');
-            return;
+        if (response.statusCode === 500) {
+            console.log('response is not 201');
+            return cb.call(this, undefined, 'invalid url');
         }
 
         var tagRegex = /(<([^>]+)>)/ig;
-        var article = response.replace(tagRegex, "<>");
+        var article = data.replace(tagRegex, "<>");
         var textRegex = /[a-zA-Z]+?[^<>/()\n\r]+?([a-zA-Z]+\s){3}[^<>/()\n\r]+/g;
         var match = article.match(textRegex);
 
@@ -89,17 +89,20 @@ shortener.extract = function (url, cb) {
         article = match.join(" ");
         article = article.replace(/[^-_a-zA-Z\']+?/g, " ");
         article = article.replace(/[ ]+/g, " ");
-        cb.call(this, article);
+        return cb.call(this, article);
     });
 };
 
 // Filter the plaintext content of the article
 shortener.filter = function (content, cb) {
-    if (!content) return cb.call(this, 'no content');
+    if (!content) {
+        console.log('filter content is null');
+        return cb.call(this, 'no content');
+    }
 
     var tokenizer = new natural.WordTokenizer();
     var terms = tokenizer.tokenize(content);
-    cb.call(this, terms);
+    return cb.call(this, terms);
 };
 
 // Perform TFIDF on terms (list of words)

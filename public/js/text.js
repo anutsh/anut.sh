@@ -66,8 +66,8 @@
 		"I can't seem to find my nuts.",
 		"where could my nuts be....",
 		"I think you are asking for something ridiculous.",
-        "hahahah... wait, you were serious?"
-        "talk to the tail, because the nut doesn't want to."
+        "hahahah... wait, you were serious?",
+        "talk to the tail, because the nut doesn't want to.",
         "i seem to have lost my tree.",
         "that's a crazy place for a web page.",
 	];
