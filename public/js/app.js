@@ -8,7 +8,8 @@ $(function () {
         $tag = $('#tag'),
         $status = $('#status'),
         $nut = $('.logo .nut img'),
-        links = 0;
+        links = 0,
+        previous;
 
     var options = {
         host: 'http://anut.sh/',
@@ -36,11 +37,13 @@ $(function () {
             }
 
             $url.attr('disabled', false);
+            $btn.attr('disabled', false);
         },
         start: function () {
             loading.spinner = new Spinner(loading.spinOpts);
             loading.spinner.spin(loading.target);
             $url.attr('disabled', true);
+            $btn.attr('disabled', true);
         },
     }, ui = {
         results: function (url) {
@@ -61,15 +64,25 @@ $(function () {
             }
 
             $links.removeClass('hide');
+
+            $clone.addClass('link');
             $ul.prepend($clone);
 
             $input.attr('id', 'link' + links);
             $input.val(options.host + url);
             $input.focus().select();
-            $button.data('clipboard-target', 'link' + links);
-			
-			var clip = new ZeroClipboard();
-			clip.setText= $links.val();
+
+            $button.attr('data-clipboard-text', options.host + url);
+
+            var clip = new ZeroClipboard($button[0], {
+                moviePath: "/lib/zeroclipboard/ZeroClipboard.swf"
+            });
+
+            clip.on('complete', function () {
+                $(this).button('toggle')
+                       .text('Copied')
+                       .attr('disabled', true);
+            });
 
             links += 1;
         }
@@ -118,8 +131,17 @@ $(function () {
                 return;
             }
 
+            if (url != previous) {
+                url = previous;
+                // Reset everything
+                $links.find('.link').remove();
+                $status.text('');
+                links = 0;
+            }
+
             console.log('Silent search called');
             silent.finished = undefined;
+            previous = url;
 
             $btn.unbind();
             $btn.click(silent.press);
