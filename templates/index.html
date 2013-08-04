@@ -6,32 +6,45 @@
 {% endblock %}
 
 {% block content %}
-<div class = "container main">
-<h1>Shorten your URL</h1>
+<div class ="main">
+    <div class = "jumbotron">
+        <img src="/img/logo.png" alt="In a Nutshell"/>
+        <p>We will generate a context-aware, short URL! Easy to copy, easy to memorize! </p>
+        <p>Type in a URL and see your new URL!</p>
+
+        <small>(ex - www.telegraph.co.uk/finance/newsbysector/banksandfinance/10219333/US-regulators-find-evidence-of-banks-fixing-derivative-rates.html)</small>
+    </div>
+
 	<div class="row">
+		<div class="col-1"></div>
 		<div class="col-10 col-lg-offset-1">
-	Enter your URL: <input type="text" id="url" name="url" width="300px" placeholder="type your URL here">
-	<button type="button" class="btn btn-primary" id="convert" name="convert">Convert!</button>
-	<!--should be a spinner right here-->
-	</br>
-	<ul>
-	<li> <input type="text" id="shortURL1" name="shortURL1">
-	<button type="button" class="btn btn-primary" id="copy1" name="copy1">Copy!</button>
-	</li>
-	</br>
-	<li> <input type="text" id="shortURL2" name="shortURL2">
-	<button type="button" class="btn btn-primary" id="copy1" name="copy1">Copy!</button>
-	</li>
-	</br>
-	<li> <input type="text" id="shortURL3" name="shortURL3">
-	<button type="button" class="btn btn-primary" id="copy1" name="copy1">Copy!</button>
-	</li>
-	</ul>
-	<pre>
-		<label id="URLDesc" name="URLDesc" text="this is url description"></label>
-	</pre>
+            <form>
+                <div class="input-group">
+                    <input id="url" type="text" class="form-control">
+                    <span class="input-group-btn">
+                        <button id="convert" class="btn btn-default" type="button">Convert</button>
+                    </span>
+                </div>
+            </form>
+            <!--should be a spinner right here-->
+
+            <ul>
+                <li id="template">
+                    <div class="input-group">
+                        <input type="text" class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Copy</button>
+                        </span>
+                    </div>
+                </li>
+            </ul>
+		</div>
+		<div class="col-1"></div>
 	</div>
-	</div>
+</div>
+<div id="footer">
+	<div class="container">
+	Made by Zach Wolfe, Josh Davis, Daehyun Shin, Hyung Won Yang
 	</div>
 </div>
 {% endblock %}
