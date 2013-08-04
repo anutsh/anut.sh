@@ -6,11 +6,14 @@ var cons = require('consolidate'),
     express = require('express'),
     http = require('http'),
     path = require('path'),
+    mongoose = require('mongoose'),
     swig = require('swig'),
     // Local imports
     routes = require('./routes'),
+    models = require('./models'),
     filters = require('./filters');
 
+var db = mongoose.connect('mongodb://localhost/anutsh');
 var app = express();
 
 app.configure(function (){
@@ -68,10 +71,15 @@ app.configure('development', function (){
 });
 
 //
+// Setup Database and Models
+//
+models.setup(db);
+
+//
 // Setup Routing
 //
 
-routes.setup(app);
+routes.setup(app, db);
 
 //
 // Launch Server
