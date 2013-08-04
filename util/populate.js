@@ -61,5 +61,4 @@ function makeRequests(urls) {
 
 redis.flushall(function(){
     makeRequests(urls);
-    process.exit();
 });
