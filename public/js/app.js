@@ -12,7 +12,7 @@ $(function () {
         previous;
 
     var options = {
-        host: 'http://anut.sh/',
+        host: window.location.origin + '/',
         taglineChange: 5,
         nutStart: 6,
         nutEnd: 8,
