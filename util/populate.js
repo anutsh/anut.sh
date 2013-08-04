@@ -17,7 +17,7 @@ var urls = [
     'http://en.wikipedia.org/wiki/Apple',
     'http://en.wikipedia.org/wiki/Apple_Inc.',
     'http://en.wikipedia.org/wiki/Ontology',
-    'http://en.wikipedia.org/wiki/Apple_Inc.',
+    'http://en.wikipedia.org/wiki/Apple_Inc',
     'http://en.wikipedia.org/wiki/Steve_Jobs',
     'http://en.wikipedia.org/wiki/Nokia',
     'http://en.wikipedia.org/wiki/Consumer_electronics',

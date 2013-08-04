@@ -1,7 +1,7 @@
 var fs = require('fs'),
     readability = require('readability'),
     natural = require('natural'),
-    request = require('request'),
+    restler = require('restler'),
     S = require('string'),
     tfidf = require('./tfidf'),
     shortener = {};
@@ -69,11 +69,15 @@ shortener.shorten = function (url, cb) {
 };
 
 shortener.extract = function (url, cb) {
-    var content = request(url, function (err, res, body) {
+    restler.get(url).on('complete', function (body) {
         var tagRegex = /(<([^>]+)>)/ig;
         var article = body.replace(tagRegex, "<>");
         var textRegex = /[a-zA-Z]+?[^<>/()\n\r]+?([a-zA-Z]+\s){3}[^<>/()\n\r]+/g;
-        article = article.match(textRegex).join(" ");
+        var match = article.match(textRegex);
+        if (!match) {
+            console.log('article = ' + article);
+        }
+        article = match.join(" ");
         article = article.replace(/[^-_a-zA-Z0-9\']+?/g, " ");
         article = article.replace(/[ ]+/g, " ");
         cb.call(this, article);
