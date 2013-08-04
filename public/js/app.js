@@ -129,6 +129,7 @@ $(function () {
             console.log('error in submit');
             silent.loading = false;
             loading.done();
+			$status.test("we couldn't find your page...");
         },
     }, silent = {
         search: function () {
@@ -208,6 +209,8 @@ $(function () {
             console.log('silent error');
             silent.loading = false;
             silent.show = false;
+			loading.done();
+			$status.test("we couldn't find your page...");
         },
     }, tagline = function () {
         $tag.fadeOut(400, function () {
