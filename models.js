@@ -4,14 +4,12 @@ exports.setup = function(db) {
             type: String,
             unique: false,
             required: true,
-            lowercase: true,
             index: true
         },
         destinationUrl: {
             type: String,
             unique: false,
             required: true,
-            lowercase: true,
             index: true
         }
     }); 
