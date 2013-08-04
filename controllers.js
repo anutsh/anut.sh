@@ -1,5 +1,10 @@
 var shortener = require('./shortener');
 var redis = require('redis').createClient();
+var Url;
+
+exports.setup = function(app, db) {
+    Url = db.model('Url');
+};
 
 exports.index = function (req, res) {
     var context = {
@@ -10,25 +15,59 @@ exports.index = function (req, res) {
 };
 
 exports.submit = function (req, res) {
-    var url = req.body.url;
+    var sourceUrl = req.body.url;
     var message = "success";
 
-    console.log(url);
-
-    shortener.shorten(url, function (url, err) {
-        if (err) res.json(400, { 'message': err });
-
-        res.json(200,{
-            'message': message,
-            'url': url
+    console.log('processing ' + sourceUrl);
+    Url.findOne({sourceUrl: sourceUrl}, function(err, url) {
+        if (err) {
+            console.log('error searching gfor url' + JSON.stringify(err));
+            res.status(500);
+            return res.end();
+        }
+        if (url) {
+            console.log('found pre-existing url url = ' + JSON.stringify(url));
+            return res.json(200, {
+                'message': message,
+                'url': url.destinationUrl
+            });
+        }
+        shortener.shorten(sourceUrl, function (url, err) {
+            if (err) {
+                return res.json(400, { 'message': err });
+            }
+            var newUrl = new Url({
+                sourceUrl: sourceUrl,
+                destinationUrl: url
+            });
+            newUrl.save(function saveUrl(err) {
+                console.log('saving newUrl');
+                if (err) {
+                    console.log('error saving new url ' + JSON.stringify(err));
+                    res.status(500);
+                    return res.end();
+                }
+                return res.json(200, {
+                    'message': message,
+                    'url': url
+                });
+            });
         });
     });
 };
 
 exports.redirect = function (req, res) {
-    alias = req.params.alias;
-    
-    //TODO: url = getUrl(alias);
-    var url = "http://google.com";
-    res.redirect(url);
+    var destinationUrl = req.params.destinationUrl;
+    console.log('redirect destinationUrl = ' + destinationUrl);
+    Url.findOne({destinationUrl: destinationUrl}, function(err, url) {
+        if (err) {
+            console.log('redirect error err = ' + JSON.stringify(err));
+        }
+        console.log('url = ' + JSON.stringify(url));
+        if (url) {
+            return res.redirect(url.sourceUrl);
+        }
+        res.status(404);
+        return res.end();
+    });
 };

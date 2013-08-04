@@ -12,14 +12,15 @@ var routes = [
         method: 'post'
     },
     {
-        url: '/:alias',
+        url: '/:destinationUrl',
         handler: controllers.redirect,
         method: 'get'
     }
 ];
 
 // Dynamically setups the routing for each route
-exports.setup = function (app) {
+exports.setup = function (app, db) {
+    controllers.setup(app, db);
     routes.forEach(function (route) {
         (app[route.method])(route.url, route.handler);
     });

@@ -38,6 +38,7 @@
         "natural": "0.1.21",
         "restler": "*",
         "string": "~1.5.0",
+        "mongoose": "*",
         "redis": "~0.8.4",
         "hiredis":"~0.1.15" 
     }
