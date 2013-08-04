@@ -33,6 +33,7 @@ exports.submit = function (req, res) {
             });
         }
         shortener.shorten(sourceUrl, function (url, err) {
+            console.log('shortener.shorten callback');
             if (err) {
                 return res.json(400, { 'message': err });
             }
@@ -41,6 +42,7 @@ exports.submit = function (req, res) {
                 destinationUrl: url
             });
             newUrl.save(function saveUrl(err) {
+                console.log('newurl save callback');
                 if (err) {
                     console.log('error saving new url ' + JSON.stringify(err));
                 }

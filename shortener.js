@@ -58,8 +58,11 @@ shortener.shorten = function (url, cb) {
     }
 
     shortener.extract(url, function (article) {
+        console.log('extract callback');
         shortener.filter(article, function(words) {
+            console.log('filter callback');
             shortener.tfidf(words, function (sortedScoreMap) {
+                console.log('tfidf callback');
                 cb.call(this, shortener.create(sortedScoreMap), undefined);
             });
         });
@@ -67,6 +70,7 @@ shortener.shorten = function (url, cb) {
 };
 
 shortener.extract = function (url, cb) {
+    console.log('extract');
     restler.get(url).on('complete', function (body) {
         var tagRegex = /(<([^>]+)>)/ig;
         var article = body.replace(tagRegex, "<>");
@@ -83,6 +87,7 @@ shortener.extract = function (url, cb) {
 
 // Filter the plaintext content of the article
 shortener.filter = function (content, cb) {
+    console.log('filter');
     var tokenizer = new natural.WordTokenizer();
     var terms = tokenizer.tokenize(content);
     cb.call(this, terms);
@@ -90,9 +95,11 @@ shortener.filter = function (content, cb) {
 
 // Perform TFIDF on terms (list of words)
 shortener.tfidf = function (words, cb) {
+    console.log('tfidf');
     var freqMapObject = getFrequencyMap(words);
     tfidf.getScoreMap(freqMapObject.frequencyMap, 
             freqMapObject.totalTermCount, function(scoreMap) {
+                console.log('getScoreMap callback');
                 cb.call(this, getSortedScoreMap(scoreMap));
             });
 };

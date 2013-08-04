@@ -1,4 +1,4 @@
-var request = require('request');
+var restler = require('restler');
 var redis = require('redis').createClient();
 
 var ENDPOINT = 'http://localhost:4000/';
@@ -34,7 +34,17 @@ var urls = [
     'http://www.wired.com/design/2013/08/sam-hecht-on-getting-back-to-simple-efficient-design/',
     'http://www.wired.com/opinion/2013/07/the-surprising-ethics-of-robot-cars/',
     'http://www.wired.com/design/2013/07/8-epic-landscapes-of-the-same-tiny-house/',
-    'http://www.wired.com/autopia/2013/08/current-affair-2/'
+    'http://www.wired.com/autopia/2013/08/current-affair-2/',
+    'http://www.theguardian.com/technology/2013/aug/04/bradley-manning-case-credibility-computer-fraud-law',
+    'http://www.kroah.com/log/blog/2013/08/04/longterm-kernel-3-dot-10/',
+    'http://www.theguardian.com/commentisfree/2013/aug/04/congress-nsa-denied-access',
+    'http://allthingsd.com/20130803/obama-vetoes-apple-product-ban/',
+    'https://medium.com/geek-empire-1/a1ebd2b4a0e5',
+    'http://www.bbc.co.uk/news/magazine-23547802',
+    'http://torrentfreak.com/2919-movie-pirates-walk-free-as-bittorrent-trolling-scheme-falls-apart-130802/',
+    'http://www.wired.com/underwire/2013/08/xkcd-time-comic/',
+    'http://spritesmods.com/?art=hddhack',
+    'http://nerdydata.tumblr.com/post/57308630996/how-we-found-all-of-optimizleys-clients'
 ];
 
 function makeRequests(urls) {
@@ -43,18 +53,8 @@ function makeRequests(urls) {
     }
     var url = urls.pop();
     console.log('Making request to url ' + url);
-    request.post(ENDPOINT, {form: {url: url}}, function(err, res, body) {
-        if (err) {
-            console.log('ERROR on url ' + url + ' err = ' + JSON.stringify(err));
-        }
-        try {
-            body = JSON.parse(body);
-            if (body && body.url) {
-                console.log('SUCCESS url = ' + url + ' nutsh url = ' + body.url);
-            }
-        } catch(e) {
-            // do nothing, fuck it
-        }
+    restler.post(ENDPOINT, {data: {url: url}}).on('complete', function(res) {
+        console.log('res = ' + JSON.stringify(res));
         makeRequests(urls);
     });
 }
