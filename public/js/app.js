@@ -5,7 +5,7 @@ $(function () {
         $links = $('.links'),
         $ul = $('.links ul'),
         $tag = $('#tag'),
-        $result = $('#result'),
+        $status = $('#status'),
         links = 0;
 
     var options = {
@@ -39,23 +39,19 @@ $(function () {
         },
     }, ui = {
         results: function (url) {
-            console.log('Showing url = ' + url);
-        }
-    }, submit = {
-        press: function () {
-            var $this = $(this);
-            var $clone = $tmpl.clone().attr('id', ''),
+            var $this = $(this),
+                $clone = $tmpl.clone().attr('id', ''),
                 $button = $clone.find('button'),
                 $input = $clone.find('input');
 
             console.log('Submit button pressed');
 
             if (links === 0) {
-                $result.text(nutshell.ask(links));
+                $status.text(nutshell.ask(links));
             } else {
-                $result.fadeOut(400, function () {
-                    $result.text(nutshell.ask(links));
-                    $result.fadeIn(400);
+                $status.fadeOut(400, function () {
+                    $status.text(nutshell.ask(links));
+                    $status.fadeIn(400);
                 });
             }
 
@@ -72,6 +68,15 @@ $(function () {
             });
 
             links += 1;
+        }
+    }, submit = {
+        press: function () {
+            var url = $url.val();
+
+            if (!isUrl(url)) {
+                $status.text(nutshell.error());
+                return;
+            }
 
             loading.start();
 
@@ -96,6 +101,13 @@ $(function () {
         },
     }, silent = {
         search: function () {
+            var url = $url.val();
+
+            if (!isUrl(url)) {
+                $status.text(nutshell.error());
+                return;
+            }
+
             console.log('Silent search called');
             silent.finished = undefined;
 
@@ -114,6 +126,13 @@ $(function () {
             });
         },
         press: function (event) {
+            var url = $url.val();
+
+            if (!isUrl(url)) {
+                $status.text(nutshell.error());
+                return;
+            }
+
             console.log('intercepted button');
             if (silent.finished) {
                 ui.results(silent.finished.url);
