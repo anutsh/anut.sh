@@ -1,0 +1,9 @@
+.wrapper{
+	background: url(images/bg.png);
+	background-repeat:repeat-x, repeat-y;
+}
+#header{
+	width: 960px;
+	height: 240px;
+	margin: 0 auto;
+}

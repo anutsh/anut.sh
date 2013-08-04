@@ -1,4 +1,5 @@
 var shortener = require('./shortener');
+var redis = require('redis').createClient();
 
 exports.index = function (req, res) {
     var context = {
@@ -22,4 +23,12 @@ exports.submit = function (req, res) {
             'url': url
         });
     });
+};
+
+exports.redirect = function (req, res) {
+    alias = req.params.alias;
+    
+    //TODO: url = getUrl(alias);
+    var url = "http://google.com";
+    res.redirect(url);
 };
