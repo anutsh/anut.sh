@@ -62,10 +62,9 @@ $(function () {
             $input.val('squirrels');
             $input.focus().select();
             $button.data('clipboard-target', 'link' + links);
-
-            new ZeroClipboard($button[0], {
-                moviePath: "/lib/zeroclipboard/ZeroClipboard.swf"
-            });
+			
+			var clip = new ZeroClipboard.Client();
+			clip.setText="/lib/zeroclipboard/ZeroClipboard.swf";
 
             links += 1;
         }
