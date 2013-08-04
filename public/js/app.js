@@ -96,6 +96,12 @@ $(function () {
         press: function () {
             var url = append($url.val());
 
+            if (silent.loading) {
+                loading.start();
+                silent.show = true;
+                return;
+            }
+
             if (!isUrl(url)) {
                 $status.text(nutshell.error());
                 return;
@@ -115,16 +121,20 @@ $(function () {
             });
         },
         success: function (data) {
+            silent.loading = false;
             ui.results(data.url);
             loading.done();
         },
         error: function (data) {
             console.log('error in submit');
+            silent.loading = false;
             loading.done();
         },
     }, silent = {
         search: function () {
             var url = append($url.val());
+
+            silent.loading = true;
 
             if (!isUrl(url)) {
                 $status.text(nutshell.error());
@@ -159,6 +169,13 @@ $(function () {
         press: function (event) {
             var url = append($url.val());
 
+            if (silent.loading) {
+                console.log('silent.show is true');
+                silent.show = true;
+                loading.start();
+                return;
+            }
+
             if (!isUrl(url)) {
                 $status.text(nutshell.error());
                 return;
@@ -176,11 +193,21 @@ $(function () {
             $btn.click(submit.press);
         },
         success: function (data) {
-            silent.finished = data;
+            console.log('Silent success, silent.show = ' + silent.show);
+            if (silent.show) {
+                ui.results(data.url);
+            } else {
+                silent.finished = data;
+            }
+
+            silent.show = false;
+            silent.loading = false;
             loading.done();
         },
         error: function (data) {
             console.log('silent error');
+            silent.loading = false;
+            silent.show = false;
         },
     }, tagline = function () {
         $tag.fadeOut(400, function () {
