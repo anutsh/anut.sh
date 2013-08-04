@@ -3,6 +3,7 @@ var fs = require('fs'),
     natural = require('natural'),
     request = require('request'),
     S = require('string'),
+    _ = require('underscore'),
     shortener = {};
 
 shortener.shorten = function (url, cb) {
@@ -50,9 +51,25 @@ function getFrequencyMap(words) {
     return frequencyMap;
 }
 
-// Gather sorted array of { 'word': 'SOME_WORD', 'frequency': 'SOME_WORDs FREQUENCY} 
-function getSortedFrequencyMap(frequencyMap) {
-    return frequencyMap;
+function getsSortedScoreMap(scoreMap) {
+    // Runtime: O(n*log(n)) where n = number of keys in scoreMap
+    var values = Object.values(scoreMap);
+    var sortedValues = values.sort();
+    var sortedScoreMap = [];
+
+    var keysByValue = {};
+    // Runtime: O(numberOfKeysInscoreMap)
+    for (var key in scoreMap) {
+        if (scoreMap.hasOwnProperty(key)) {
+            if (!keysByValue.hasOwnProperty( scoreMap[key] )) {
+                keysByValue[scoreMap[key]] = [];
+            }
+            keysByValue[scoreMap[key]].push(key);
+        }
+    }
+
+    console.log(JSON.stringify(sortedScoreMap));
+    return sortedScoreMap;
 }
 
 // Get the first N most 'important' words and place them in 'mostImportantWords' array
