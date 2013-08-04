@@ -34,19 +34,16 @@ function getSortedScoreMap(scoreMap) {
     sortable.sort(function(a, b) {
         return b[1] - a[1];
     });
-    console.log('sortable = ' + JSON.stringify(sortable, null, 4));
     return sortable;
 }
 
 // Get the first N most 'important' words and place them in 'mostImportantWords' array
 function getImportantTerms(sortedScoreMap) {
     var sortedScoreSubset = sortedScoreMap.splice(1,7);
-    console.log('sortedScoreSubset = ' + JSON.stringify(sortedScoreSubset,null,4));
     var importantTerms = [];
     for (var i = 0; i < sortedScoreSubset.length; i++) {
         importantTerms.push(sortedScoreSubset[i][0]);
     }
-    console.log('importantTerms = ' + JSON.stringify(importantTerms, null, 4));
     return importantTerms;
 }
 
