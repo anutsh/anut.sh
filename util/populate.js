@@ -1,9 +1,9 @@
-var redis = require('redis').createClient();
+var request = require('request');
 var request = require('request');
 
-redis.flushall(function(){
-    var ENDPOINT = 'http://localhost:4000/';
-    var urls = [
+var ENDPOINT = 'http://localhost:4000/';
+
+var urls = [
     'http://www.independent.ie/irish-news/courts/fbi-bids-to-extradite-largest-childporn-dealer-on-planet-29469402.html',
     'http://playdoh.readthedocs.org/en/latest/',
     'http://techcrunch.com/2013/08/02/university-of-california-approves-major-open-access-policy-to-make-research-free',
@@ -35,28 +35,8 @@ redis.flushall(function(){
     'http://www.wired.com/opinion/2013/07/the-surprising-ethics-of-robot-cars/',
     'http://www.wired.com/design/2013/07/8-epic-landscapes-of-the-same-tiny-house/',
     'http://www.wired.com/autopia/2013/08/current-affair-2/'
-    ];
+];
 
-    for (var i = 0; i < urls.length; i++) {
-        var urlsServiced = 0;
-        (function(i) {
-            setTimeout(function() {
-                console.log('making request to ' + urls[i]);
-                request.post(ENDPOINT, {form:{url: urls[i]}}, function(error, response, body) {
-                    console.log('response = ' + (body));
-                    urlsServiced++;
-                    if (urlsServiced === urls.length) {
-                        process.exit();
-                    }
-                });
-            }, 500);
-        })(i);
-    }
-    process.exit();
-});
-
-<<<<<<< HEAD
-=======
 function makeRequests(urls) {
     if (!urls || urls.length === 0) {
         process.exit();
@@ -79,5 +59,7 @@ function makeRequests(urls) {
     });
 }
 
-makeRequests(urls);
->>>>>>> ae400e2e27905deb673a9d87d2351af58aebc714
+redis.flushall(function(){
+    makeRequests(urls);
+    process.exit();
+});
