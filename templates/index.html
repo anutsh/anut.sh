@@ -6,32 +6,46 @@
 {% endblock %}
 
 {% block content %}
-<div class = "container main">
-<h1>Shorten your URL</h1>
+<div class ="main">
+<div class = "jumbotron"><h1>Shorten your URL</h1>
+<p>We will generate a context-aware, short URL! Easy to copy, easy to memorize! </p>
+<p>Type in a URL and see your new URL!</p>
+<small>(ex - www.telegraph.co.uk/finance/newsbysector/banksandfinance/10219333/US-regulators-find-evidence-of-banks-fixing-derivative-rates.html)</small>
+</div>
 	<div class="row">
+		<div class="col-1"></div>
 		<div class="col-10 col-lg-offset-1">
-	Enter your URL: <input type="text" id="inputURL" name="inputURL" width="300px" placeholder="type your URL here">
-	<button type="button" class="btn btn-primary" id="convert" name="convert">Convert!</button>
+		<label class="font-resize">Enter your URL:</label>&nbsp&nbsp
+	<input type="text" id="inputURL" name="inputURL" size="100px" class="form-control" placeholder="type your URL here">&nbsp&nbsp
+	<button type="button" class="btn btn-primary" id="convert" name="convert" size="40px">Convert!</button>
 	<!--should be a spinner right here-->
-	</br>
+	<p></p>
 	<ul>
-	<li> <input type="text" id="shortURL1" name="shortURL1">
+	<li> <input type="text" id="shortURL1" name="shortURL1" size="100px" >
 	<button type="button" class="btn btn-primary" id="copy1" name="copy1">Copy!</button>
 	</li>
 	</br>
-	<li> <input type="text" id="shortURL2" name="shortURL2">
+	<li> <input type="text" id="shortURL2" name="shortURL2" size="100px" >
 	<button type="button" class="btn btn-primary" id="copy1" name="copy1">Copy!</button>
 	</li>
 	</br>
-	<li> <input type="text" id="shortURL3" name="shortURL3">
+	<li> <input type="text" id="shortURL3" name="shortURL3" size="100px" >
 	<button type="button" class="btn btn-primary" id="copy1" name="copy1">Copy!</button>
 	</li>
 	</ul>
 	<pre>
+		<a href="#" class="thumbnail">
+			<img src="../public/css/images/example.jpg" alt="">
+		</a>
 		<label id="URLDesc" name="URLDesc" text="this is url description"></label>
 	</pre>
+		</div>
+		<div class="col-1"></div>
 	</div>
-	</div>
+</div>
+<div id="footer">
+	<div class="container">
+	Made by Zach Wolfe, Josh Davis, Daehyun Shin, Hyung Won Yang
 	</div>
 </div>
 {% endblock %}

@@ -1,10 +1,18 @@
 .wrapper{
-	background: #04819E
+	background: #04819E;
+	height: 100%;
 }
 .main{
 	background: url(images/bg.jpg) repeat;
-	height: 900px
+	min-height: 90%
 }
 .white{
-	background: #FFFFFF
+	background: #FFFFFF;
+}
+#footer{
+	background: #F2F2F2;
+	height: 40px;
+}
+.font-resize{
+	font-size:140%;
 }
