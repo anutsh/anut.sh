@@ -84,7 +84,8 @@ shortener.extract = function (url, cb) {
         var textRegex = /[a-zA-Z]+?[^<>/()\n\r]+?([a-zA-Z]+\s){3}[^<>/()\n\r]+/g;
         var match = article.match(textRegex);
 
-        if (!match) { }
+        if (!match)
+            match = url.match(/[a-zA-Z0-9]+/g);
 
         article = match.join(" ");
         article = article.replace(/[^-_a-zA-Z\']+?/g, " ");
