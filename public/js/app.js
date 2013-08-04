@@ -45,6 +45,8 @@ $(function () {
             $url.attr('disabled', true);
             $btn.attr('disabled', true);
         },
+    }, append = function (url) {
+        return url.indexOf('http') === 0 ? url : 'http://' + url;
     }, ui = {
         results: function (url) {
             var $this = $(this),
@@ -92,9 +94,7 @@ $(function () {
             return false;
         },
         press: function () {
-            var url = $url.val();
-            if (!url.match(/^[a-zA-Z]+:\/\//))
-                url = 'http://' + url;
+            var url = append($url.val());
 
             if (!isUrl(url)) {
                 $status.text(nutshell.error());
@@ -108,7 +108,7 @@ $(function () {
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    url: $url.val(),
+                    url: url,
                 },
                 success: submit.success,
                 error: submit.error,
@@ -124,7 +124,7 @@ $(function () {
         },
     }, silent = {
         search: function () {
-            var url = $url.val();
+            var url = append($url.val());
 
             if (!isUrl(url)) {
                 $status.text(nutshell.error());
@@ -132,7 +132,6 @@ $(function () {
             }
 
             if (url !== previous) {
-                url = previous;
                 // Reset everything
                 $links.find('.link').remove();
                 $status.text('');
@@ -151,14 +150,14 @@ $(function () {
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    url: $url.val(),
+                    url: url,
                 },
                 success: silent.success,
                 error: silent.error,
             });
         },
         press: function (event) {
-            var url = $url.val();
+            var url = append($url.val());
 
             if (!isUrl(url)) {
                 $status.text(nutshell.error());
@@ -189,7 +188,7 @@ $(function () {
             $tag.fadeIn(400);
         });
     }, isUrl = function (url) {
-		var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+		var regexp = /\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
     	return regexp.test(url);
 	}, shakeNuts = {
         start: function () {
