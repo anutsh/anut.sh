@@ -67,10 +67,9 @@ $(function () {
             $input.val(options.host + url);
             $input.focus().select();
             $button.data('clipboard-target', 'link' + links);
-
-            new ZeroClipboard($button[0], {
-                moviePath: "/lib/zeroclipboard/ZeroClipboard.swf"
-            });
+			
+			var clip = new ZeroClipboard();
+			clip.setText= $links.val();
 
             links += 1;
         }
