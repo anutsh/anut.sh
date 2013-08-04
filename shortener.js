@@ -56,25 +56,16 @@ function getScoreMap(frequencyMap) {
     return frequencyMap;
 }
 
-function getsSortedScoreMap(scoreMap) {
-    // Runtime: O(n*log(n)) where n = number of keys in scoreMap
-    var values = Object.values(scoreMap);
-    var sortedValues = values.sort();
-    var sortedScoreMap = [];
-
-    var keysByValue = {};
-    // Runtime: O(numberOfKeysInscoreMap)
+function getSortedScoreMap(scoreMap) {
+    var sortable = [];
     for (var key in scoreMap) {
         if (scoreMap.hasOwnProperty(key)) {
-            if (!keysByValue.hasOwnProperty( scoreMap[key] )) {
-                keysByValue[scoreMap[key]] = [];
-            }
-            keysByValue[scoreMap[key]].push(key);
+            sortable.push([key, scoreMap[key]]);
         }
     }
-
-    console.log(JSON.stringify(sortedScoreMap));
-    return sortedScoreMap;
+    sortable.sort(function(a, b) {
+        return b[1] - a[1];
+    });
 }
 
 // Get the first N most 'important' words and place them in 'mostImportantWords' array
@@ -86,7 +77,7 @@ function getMostImportantWords(sortedFrequencyMap) {
 shortener.tfidf = function (words, cb) {
     var frequencyMap = getFrequencyMap(words);
     var scoreMap = getScoreMap(frequencyMap);
-    var sortedScoreMap = getSortedFrequencyMap(scoreMap);
+    var sortedScoreMap = getSortedScoreMap(scoreMap);
     cb.call(this, getMostImportantWords(sortedScoreMap));
 };
 
