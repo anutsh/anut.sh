@@ -3,6 +3,7 @@ var fs = require('fs'),
     natural = require('natural'),
     request = require('request'),
     S = require('string'),
+    _ = require('underscore'),
     shortener = {};
 
 shortener.shorten = function (url, cb) {
@@ -38,11 +39,33 @@ shortener.filter = function (content, cb) {
 
 function getFrequencyMap(words) {
     var frequencyMap = {};
+
+    for (var i = 0; i < words.length; i++) {
+        if(frequencyMap[words[i]] === undefined) {
+            frequencyMap[words[i]] = 1;
+        } else {
+            frequencyMap[words[i]] += 1;
+        }
+    }
+
+    return frequencyMap;
 }
 
-// Gather sorted array of { 'word': 'SOME_WORD', 'frequency': 'SOME_WORDs FREQUENCY} 
-function getSortedFrequencyMap(frequencyMap) {
+function getScoreMap(frequencyMap) {
+    // @TODO: run tfidf.getScores(frequencyMap);
     return frequencyMap;
+}
+
+function getSortedScoreMap(scoreMap) {
+    var sortable = [];
+    for (var key in scoreMap) {
+        if (scoreMap.hasOwnProperty(key)) {
+            sortable.push([key, scoreMap[key]]);
+        }
+    }
+    sortable.sort(function(a, b) {
+        return b[1] - a[1];
+    });
 }
 
 // Get the first N most 'important' words and place them in 'mostImportantWords' array
@@ -53,8 +76,9 @@ function getMostImportantWords(sortedFrequencyMap) {
 // Perform TFIDF on terms (list of words)
 shortener.tfidf = function (words, cb) {
     var frequencyMap = getFrequencyMap(words);
-    var sortedFrequencyMap = getSortedFrequencyMap(frequencyMap);
-    cb.call(this, getMostImportantWords(sortedFrequencyMap));
+    var scoreMap = getScoreMap(frequencyMap);
+    var sortedScoreMap = getSortedScoreMap(scoreMap);
+    cb.call(this, getMostImportantWords(sortedScoreMap));
 };
 
 // @TODO - make this awesomer
