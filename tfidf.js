@@ -47,7 +47,7 @@ function updateBackground (documentTerms, cb) {
 }
 
 // documentTerms: {term:count, term2:count2, ... } 
-tfidf.getScores = function (documentTerms, totalTermCount, cb) {
+tfidf.getScoreMap = function (documentTerms, totalTermCount, cb) {
     updateBackground(documentTerms, function(backgroundTotal, documentTermsLength) {
         var score = {};
 
@@ -68,4 +68,4 @@ tfidf.getScores = function (documentTerms, totalTermCount, cb) {
     });
 };
 
-exports.getScores = tfidf.getScores;
+exports.getScoreMap = tfidf.getScoreMap;
