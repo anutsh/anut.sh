@@ -11,11 +11,13 @@ shortener.shorten = function (url, cb) {
     }
 
     shortener.extract(url, function (article) {
-        shortener.tfidf(article.s, function (terms) {
-            cb.call(this, shortener.create(terms), undefined);
+        shortener.filter(article.s, function(words) {
+            shortener.tfidf(words, function (terms) {
+                cb.call(this, shortener.create(terms), undefined);
+            });
         });
     });
-}
+};
 
 shortener.extract = function (url, cb) {
     console.log('parsing url = ' + url);
@@ -27,20 +29,38 @@ shortener.extract = function (url, cb) {
     });
 };
 
-shortener.tfidf = function (article, cb) {
-    var TfIdf = natural.TfIdf,
-        tfidf = new TfIdf(),
-        terms = [];
-
-    // Add our article
-    tfidf.addDocument(article);
-
-    cb.call(this, ['common', 'words', 'here']);
+// Filter the plaintext content of the article
+shortener.filter = function (content, cb) {
+    var tokenizer = new natural.WordTokenizer();
+    var terms = tokenizer.tokenize(content);
+    cb.call(this, terms);
 };
 
-shortener.create = function (terms) {
-    var end = terms.length > 5 ? 5 : terms.length;
-    return terms.splice(0, end).join('-');
+function getFrequencyMap(words) {
+    var frequencyMap = {};
+}
+
+// Gather sorted array of { 'word': 'SOME_WORD', 'frequency': 'SOME_WORDs FREQUENCY} 
+function getSortedFrequencyMap(frequencyMap) {
+    return frequencyMap;
+}
+
+// Get the first N most 'important' words and place them in 'mostImportantWords' array
+function getMostImportantWords(sortedFrequencyMap) {
+    return sortedFrequencyMap;
+}
+
+// Perform TFIDF on terms (list of words)
+shortener.tfidf = function (words, cb) {
+    var frequencyMap = getFrequencyMap(words);
+    var sortedFrequencyMap = getSortedFrequencyMap(frequencyMap);
+    cb.call(this, getMostImportantWords(sortedFrequencyMap));
+};
+
+// @TODO - make this awesomer
+shortener.create = function (importantTerms) {
+    var end = importantTerms.length > 5 ? 5 : importantTerms.length;
+    return importantTerms.splice(0, end).join('-');
 };
 
 exports.shorten = shortener.shorten;
