@@ -27,7 +27,9 @@ function runTest() {
                 }
             }
         }
-        console.log('Test has pased: ' + (fail === false));
+        var success = (fail === false);
+        console.log('Test has pased: ' + success);
+        process.exit(success);
     });
 }
 
@@ -44,4 +46,3 @@ for (var key in documents[documents.length - 1]) {
         })(key);
     }
 }
-
