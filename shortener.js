@@ -34,15 +34,19 @@ function getSortedScoreMap(scoreMap) {
     sortable.sort(function(a, b) {
         return b[1] - a[1];
     });
+    console.log('sortable = ' + JSON.stringify(sortable, null, 4));
+    return sortable;
 }
 
 // Get the first N most 'important' words and place them in 'mostImportantWords' array
 function getImportantTerms(sortedScoreMap) {
-    var sortedScoreSubset = sortedScoreMap.splice(1,4);
+    var sortedScoreSubset = sortedScoreMap.splice(1,7);
+    console.log('sortedScoreSubset = ' + JSON.stringify(sortedScoreSubset,null,4));
     var importantTerms = [];
     for (var i = 0; i < sortedScoreSubset.length; i++) {
-        importantTerms.push(sortedScoreSubset[0]);
+        importantTerms.push(sortedScoreSubset[i][0]);
     }
+    console.log('importantTerms = ' + JSON.stringify(importantTerms, null, 4));
     return importantTerms;
 }
 
@@ -68,7 +72,6 @@ shortener.shorten = function (url, cb) {
 };
 
 shortener.extract = function (url, cb) {
-    console.log('parsing url = ' + url);
     var content = request(url, function (err, res, body) {
         readability.parse(body, url, function (result) {
             var article = S(result.content).stripTags();
@@ -89,7 +92,6 @@ shortener.tfidf = function (words, cb) {
     var freqMapObject = getFrequencyMap(words);
     tfidf.getScoreMap(freqMapObject.frequencyMap, 
         freqMapObject.totalTermCount, function(scoreMap) {
-        console.log('scoreMap = ' + JSON.stringify(scoreMap, null, 4));
         cb.call(this, getSortedScoreMap(scoreMap));
     });
 };
