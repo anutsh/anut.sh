@@ -1,18 +1,11 @@
 $(function () {
-    var $convertButton = $('#submit');
-    var $inputUrl = $('#url');
+    var $btn = $('#submit');
+    var $url = $('#url');
 
     var options = {
+        submit: '/',
         delay: 350,
     };
-
-    function onShortUrlSuccess(data) {
-        console.log('data = ' + JSON.stringify(data));
-        return;
-    }
-
-    function onShortUrlError(jqXHR) {
-    }
 
     // Eventually this will be a 'loading' spinner or
     // something
@@ -20,50 +13,100 @@ $(function () {
         target: document.getElementById('spinner'),
         spinOpts:  {
             lines: 13,
-            length: 20,
-            width: 10,
-            radius: 30,
+            length: 8,
+            width: 3,
+            radius: 5,
             corners: 1,
         },
-        done: function() {
-            loading.spinner.stop();
-            $inputUrl.attr('disabled', false);
+        done: function () {
+            if (loading.spinner) {
+                loading.spinner.stop();
+            }
+
+            $url.attr('disabled', false);
         },
-        start: function() {
+        start: function () {
             loading.spinner = new Spinner(loading.spinOpts);
             loading.spinner.spin(loading.target);
-            $inputUrl.attr('disabled', true);
+            $url.attr('disabled', true);
+        },
+    }, ui = {
+        results: function (url) {
+            console.log('Showing url = ' + url);
         }
+    }, submit = {
+        press: function () {
+            console.log('Submit button pressed');
+
+            loading.start();
+
+            $.ajax({
+                url: options.submit,
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    url: $url.val(),
+                },
+                success: submit.success,
+                error: submit.error,
+            });
+        },
+        success: function (data) {
+            ui.results(data.url);
+            loading.done();
+        },
+        error: function (data) {
+            console.log('error in submit');
+            loading.done();
+        },
+    }, silent = {
+        search: function () {
+            console.log('Silent search called');
+            silent.finished = undefined;
+
+            $btn.unbind();
+            $btn.click(silent.press);
+
+            $.ajax({
+                url: options.submit,
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    url: $url.val(),
+                },
+                success: silent.success,
+                error: silent.error,
+            });
+        },
+        press: function (event) {
+            console.log('intercepted button');
+            if (silent.finished) {
+                ui.results(silent.finished.url);
+            } else {
+                loading.start();
+            }
+
+            // Do regardless
+            $btn.unbind();
+            $btn.click(submit.press);
+        },
+        success: function (data) {
+            silent.finished = data;
+            loading.done();
+        },
+        error: function (data) {
+            console.log('silent error');
+        },
     };
 
-    function ajax(success, error) {
-        var successCallbacks = [loading.done];
-        var errorCallbacks = [loading.done];
+    //
+    // Attach Event Handlers
+    //
 
-        if (success) { successCallbacks.push(success); }
-        if (error) { errorCallbacks.push(error); }
-
-        loading.start();
-
-        $.ajax({
-            url: '/',
-            type: 'post',
-            data: {
-                url: $inputUrl.val()
-            },
-            success: successCallbacks,
-            error: errorCallbacks
-        });
-    }
-
-    function handleUrlChange() {
-        console.log('Url change!');
-        ajax(onShortUrlSuccess, onShortUrlError);
-    }
-
-    // **** DOM element event handlers ***
-    $inputUrl.search({
-        search: handleUrlChange,
+    $url.search({
+        search: silent.search,
         delay: options.delay,
     });
+
+    $btn.click(submit.press);
 });
