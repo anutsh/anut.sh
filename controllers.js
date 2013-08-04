@@ -45,8 +45,7 @@ exports.submit = function (req, res) {
                     newUrl.save(function(err) {
                         if (err) { 
                             console.log('error saving to mongodb' + JSON.stringify(err)); 
-                            res.status(500);
-                            return res.end();
+                            return res.status(500, {message: 'error saving data'});
                         } else {
                             console.log('mongo should have created doc with destinationUrl ' + newUrl.destinationUrl);
                             return res.json(200, {
