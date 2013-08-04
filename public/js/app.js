@@ -76,6 +76,8 @@ $(function () {
     }, submit = {
         press: function () {
             var url = $url.val();
+            if (!url.match(/^[a-zA-Z]+:\/\//))
+                url = 'http://' + url;
 
             if (!isUrl(url)) {
                 $status.text(nutshell.error());
