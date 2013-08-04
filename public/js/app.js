@@ -63,8 +63,6 @@ $(function () {
 
             $this.data('links', links);
 
-            return;
-
             loading.start();
 
             $.ajax({
