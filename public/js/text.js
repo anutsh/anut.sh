@@ -46,6 +46,7 @@
 		"\"try me.\"",
         "bit.ly ain't got nothing on these nuts",
         "how do you like them apple nuts?",
+		"nutify your URL.",
     ];
 	var err = [
 		"thata is not a valid url.",
