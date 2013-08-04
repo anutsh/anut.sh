@@ -2,7 +2,6 @@ var redis = require('redis').createClient();
 var tfidf = {};
 
 function updateBackground (documentTerms, cb) {
-    console.log('updateBackground');
     var totalVal = 0;
     var keysServiced = 0;
     var documentTermsLength = Object.keys(documentTerms).length;
@@ -24,9 +23,7 @@ function updateBackground (documentTerms, cb) {
                     }
                     keysServiced++;
                     if (keysServiced === documentTermsLength) {
-                        console.log(' about to set total key ');
                         redis.get("TOTAL_KEY", function (err, res) {
-                            console.log('total key callback');
                             var totalKeyDelta = 0;
                             if(res === null || isNaN(res)) {
                                 // key does not exist. set a new key-value pair.
@@ -52,9 +49,7 @@ function updateBackground (documentTerms, cb) {
 
 // documentTerms: {term:count, term2:count2, ... } 
 tfidf.getScoreMap = function (documentTerms, totalTermCount, cb) {
-    console.log('getScoreMap');
     updateBackground(documentTerms, function(backgroundTotal, documentTermsLength) {
-        console.log('updateBackground callback');
         var score = {};
 
         var keysServiced = 0;
@@ -66,7 +61,6 @@ tfidf.getScoreMap = function (documentTerms, totalTermCount, cb) {
                     score[key] = ((value+1)/(backgroundTotal+20000)) / totalTermCount / parseInt(res, 10);
                     keysServiced ++;
                     if (keysServiced === documentTermsLength) {
-                        console.log('keysServiced == documentTermsLength');
                         return cb(score);
                     }
                 });
