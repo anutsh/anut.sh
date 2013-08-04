@@ -32,7 +32,6 @@ function updateBackground (documentTerms, cb) {
                                 // key exists. update the value.
                                 totalKeyDelta = parseInt(res, 10) + totalVal;
                             }
-                            console.log('totalKeyDelta = ' + totalKeyDelta);
                             redis.set("TOTAL_KEY", totalKeyDelta, function(err, res) {
                                 if (err) {
                                     // TODO: log error
@@ -60,7 +59,6 @@ tfidf.getScores = function (documentTerms, totalTermCount, cb) {
                 redis.get(key, function(err, res) {
                     score[key] = ((value+1)/(backgroundTotal+20000)) / totalTermCount / parseInt(res, 10);
                     keysServiced ++;
-                    console.log('score = ' + JSON.stringify(score) + 'keysServiced = ' + keysServiced);
                     if (keysServiced === documentTermsLength) {
                         return cb(score);
                     }
