@@ -12,7 +12,7 @@ var routes = [
         method: 'post'
     },
     {
-        url: '/:alias',
+        url: '/:destinationUrl',
         handler: controllers.redirect,
         method: 'get'
     }

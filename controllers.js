@@ -58,6 +58,7 @@ exports.submit = function (req, res) {
 
 exports.redirect = function (req, res) {
     var destinationUrl = req.params.destinationUrl;
+    console.log('redirect destinationUrl = ' + destinationUrl);
     Url.findOne({destinationUrl: destinationUrl}, function(err, url) {
         if (err) {
             console.log('redirect error err = ' + JSON.stringify(err));
