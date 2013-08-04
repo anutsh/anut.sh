@@ -6,28 +6,32 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Shorten your URL</h1>
-    <div class = "container">
-        <div class="row">
-            <div class="col-lg-6 col-lg-offset-3">
-                Enter your URL: <input type="text" id="url" name="inputURL" width="300px">
-                <button id="submit" type="button">Convert!</button>
-                <!--should be a spinner right here-->
-                <ul>
-                    <li> <input type="text" id="shortURL1" name="shortURL1">
-                    <button type="button" id="copy1" name="copy1">Copy!</button>
-                    </li>
-                    <li> <input type="text" id="shortURL2" name="shortURL2">
-                    <button type="button" id="copy1" name="copy1">Copy!</button>
-                    </li>
-                    <li> <input type="text" id="shortURL3" name="shortURL3">
-                    <button type="button" id="copy1" name="copy1">Copy!</button>
-                    </li>
-                </ul>
-                <pre>
-            <label id="URLDesc" name="URLDesc" text="this is url description"></label>
-                </pre>
-            </div>
-        </div>
-    </div>
+<div class = "container main">
+<h1>Shorten your URL</h1>
+	<div class="row">
+		<div class="col-10 col-lg-offset-1">
+	Enter your URL: <input type="text" id="inputURL" name="inputURL" width="300px" placeholder="type your URL here">
+	<button type="button" class="btn btn-primary" id="convert" name="convert">Convert!</button>
+	<!--should be a spinner right here-->
+	</br>
+	<ul>
+	<li> <input type="text" id="shortURL1" name="shortURL1">
+	<button type="button" class="btn btn-primary" id="copy1" name="copy1">Copy!</button>
+	</li>
+	</br>
+	<li> <input type="text" id="shortURL2" name="shortURL2">
+	<button type="button" class="btn btn-primary" id="copy1" name="copy1">Copy!</button>
+	</li>
+	</br>
+	<li> <input type="text" id="shortURL3" name="shortURL3">
+	<button type="button" class="btn btn-primary" id="copy1" name="copy1">Copy!</button>
+	</li>
+	</ul>
+	<pre>
+		<label id="URLDesc" name="URLDesc" text="this is url description"></label>
+	</pre>
+	</div>
+	</div>
+	</div>
+</div>
 {% endblock %}

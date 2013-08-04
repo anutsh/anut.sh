@@ -29,6 +29,6 @@ exports.redirect = function (req, res) {
     alias = req.params.alias;
     
     //TODO: url = getUrl(alias);
-    url = "http://google.com";
+    var url = "http://google.com";
     res.redirect(url);
 };
