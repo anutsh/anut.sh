@@ -10,9 +10,12 @@ function runTest() {
     }
     tfidf.getScores(documents[documents.length-1], totalTermCount, function(scores) {
         var fail = false;
-        if (scores.one != scores.two || scores.one != scores.three || scores.one != scores.four)
+        if (scores.one !== scores.two || scores.one !== scores.three || scores.one !== scores.four) {
             fail = true;
-        console.log('Test has pased: ' + (fail === false));
+        }
+        var success = (fail === false);
+        console.log('Test has pased: ' + success);
+        process.exit(success);
     });
 }
 
