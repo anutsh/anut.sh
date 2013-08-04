@@ -52,6 +52,9 @@
 		"give me something better.",
 		"do you want my nut or not?",
 		"hey, that is not what I expected.",
+		"i know my urls, that isn't a url.",
+		"is this a joke? that's not a url.",
+		"i'll keep my nuts to myself.",
 	];
     var random = function (n) {
         return Math.floor(Math.random() * n);
@@ -68,10 +71,14 @@
             tagline = ask.multiple[random(ask.multiple.length)];
         }
 
-        return tagline
+        return tagline;
     };
 
     root.nutshell.tag = function () {
         return tag[random(tag.length)];
     };
+
+    root.nutshell.error = function () {
+        return err[random(err.length)];
+    }
 }(window));
