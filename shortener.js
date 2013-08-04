@@ -39,7 +39,7 @@ shortener.filter = function (content, cb) {
 function getFrequencyMap(words) {
     var frequencyMap = {};
 
-    for (var i = 0; i < myStringArray.length; i++) {
+    for (var i = 0; i < words.length; i++) {
         if(frequencyMap[words[i]] === undefined) {
             frequencyMap[words[i]] = 1;
         } else {
@@ -47,7 +47,7 @@ function getFrequencyMap(words) {
         }
     }
 
-    return getFrequencyMap;
+    return frequencyMap;
 }
 
 // Gather sorted array of { 'word': 'SOME_WORD', 'frequency': 'SOME_WORDs FREQUENCY} 
