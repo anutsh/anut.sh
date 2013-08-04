@@ -54,6 +54,9 @@ a:hover {
     left: 0px;
     width: 300px;
     height: 250px;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-delay: 2s;
+    -webkit-animation-iteration-count: infinite;
 }
 
 .logo a {
@@ -189,12 +192,15 @@ textarea:focus, input[type="text"]:focus {
 	-moz-animation-name: swing;
 	-o-animation-name: swing;
 	animation-name: swing;
+}
+
+.animated {
     -webkit-animation-duration: 1s;
-    -moz-animation-duration: 1s;
-    -o-animation-duration: 1s;
-    animation-duration: 1s;
+       -moz-animation-duration: 1s;
+         -o-animation-duration: 1s;
+            animation-duration: 1s;
     -webkit-animation-fill-mode: both;
-    -moz-animation-fill-mode: both;
-    -o-animation-fill-mode: both;
-    animation-fill-mode: both;
+       -moz-animation-fill-mode: both;
+         -o-animation-fill-mode: both;
+            animation-fill-mode: both;
 }

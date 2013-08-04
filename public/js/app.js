@@ -12,8 +12,8 @@ $(function () {
     var options = {
         host: 'http://anut.sh/',
         taglineChange: 5,
-        nutShake: 3,
-        nutAnimation: 4,
+        nutStart: 6,
+        nutEnd: 8,
         submit: '/',
         delay: 350,
     };
@@ -163,18 +163,14 @@ $(function () {
     }, isUrl = function (url) {
 		var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
     	return regexp.test(url);
-	}, shakeNuts = function () {
-        var timeout;
-        console.log('Shaking nuts');
-        $nut.addClass('swing');
-
-        timeout = setTimeout(function () {
-            $nut.removeClass('swing');
-            console.log('Removing animation');
-            clearTimeout(timeout);
-        }, options.nutAnimation);
+	}, shakeNuts = {
+        start: function () {
+            $nut.addClass('animated swing');
+        },
+        end: function () {
+            $nut.removeClass('animated swing');
+        }
     };
-
     //
     // Attach Event Handlers
     //
@@ -192,8 +188,9 @@ $(function () {
     // Setup Timeouts
     //
 
-    setTimeout(tagline, options.taglineChange * 1000);
-    setTimeout(shakeNuts, options.nutShake * 1000);
+    setInterval(tagline, options.taglineChange * 1000);
+    setInterval(shakeNuts.start, options.nutStart * 1000);
+    setInterval(shakeNuts.end, options.nutEnd * 1000);
 
     //
     // Setup Copy & Paste
