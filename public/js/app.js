@@ -1,5 +1,6 @@
 $(function () {
     var $btn = $('#convert'),
+        $form = $('form'),
         $tmpl = $('#template'),
         $url = $('#url'),
         $links = $('.links'),
@@ -74,6 +75,10 @@ $(function () {
             links += 1;
         }
     }, submit = {
+        click: function () {
+            $btn.trigger('click');
+            return false;
+        },
         press: function () {
             var url = $url.val();
             if (!url.match(/^[a-zA-Z]+:\/\//))
@@ -183,6 +188,8 @@ $(function () {
     });
 
     $btn.click(submit.press);
+    $btn.click(submit.press);
+    $form.submit(submit.click);
 
     //$nut.hover(shakeNuts);
 
