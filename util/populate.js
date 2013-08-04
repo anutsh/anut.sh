@@ -1,5 +1,5 @@
 var request = require('request');
-var request = require('request');
+var redis = require('redis').createClient();
 
 var ENDPOINT = 'http://localhost:4000/';
 
