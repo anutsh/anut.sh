@@ -47,7 +47,12 @@
         "bit.ly ain't got nothing on these nuts",
         "how do you like them apple nuts?",
     ];
-
+	var err = [
+		"thata is not a valid url.",
+		"give me something better.",
+		"do you want my nut or not?",
+		"hey, that is not what I expected.",
+	];
     var random = function (n) {
         return Math.floor(Math.random() * n);
     };
