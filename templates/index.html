@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block css %}
+    <link href='http://fonts.googleapis.com/css?family=Allan' rel='stylesheet' type='text/css'>
+{% endblock %}
+
 {% block js %}
     <script type="text/javascript" src="/lib/spin/spin.min.js"></script>
     <script type="text/javascript" src="/lib/search/search.js"></script>
@@ -7,12 +11,11 @@
 
 {% block content %}
 <div class ="main">
-    <div class = "jumbotron">
-        <img src="/img/logo.png" alt="In a Nutshell"/>
-        <p>We will generate a context-aware, short URL! Easy to copy, easy to memorize! </p>
-        <p>Type in a URL and see your new URL!</p>
-
-        <small>(ex - www.telegraph.co.uk/finance/newsbysector/banksandfinance/10219333/US-regulators-find-evidence-of-banks-fixing-derivative-rates.html)</small>
+    <div class="row header">
+        <div class="col-12">
+            <img src="/img/logo.png" alt="In a Nutshell"/>
+            <p>where squirrels go to shorten urls.</p>
+        </div>
     </div>
 
 	<div class="row">

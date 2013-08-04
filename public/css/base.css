@@ -3,6 +3,25 @@ html, body { height: 100%; }
 img { border: none; }
 ul { list-style: none; }
 
+.container {
+    height: 100%;
+}
+
+.header {
+    height: 250px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.header img {
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 18px;
+    font-family: 'Allan';
+}
+
 #template {
     display: none;
 }
@@ -13,8 +32,9 @@ ul { list-style: none; }
 }
 
 .main {
+    width: 480px;
+    margin: 0 auto;
     background: url(images/bg.jpg) repeat;
-    min-height: 90%
 }
 .white {
     background: #FFFFFF;
@@ -25,6 +45,8 @@ ul { list-style: none; }
 }
 
 #footer {
+    width: 480px;
+    margin: 0 auto;
     padding: 10px 0;
     font-size: 10px;
     text-align: center;
