@@ -4,7 +4,8 @@ $(function () {
         $url = $('#url'),
         $links = $('.links'),
         $ul = $('.links ul'),
-        $tag = $('#tag');
+        $tag = $('#tag'),
+        $result = $('#result');
 
     var options = {
         submit: '/',
@@ -55,6 +56,7 @@ $(function () {
             links += 1;
 
             $this.data('links', links);
+
             return;
 
             loading.start();
