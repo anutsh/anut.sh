@@ -20,16 +20,17 @@ exports.submit = function (req, res) {
 
     console.log('processing ' + sourceUrl);
     Url.findOne({sourceUrl: sourceUrl}, function(err, url) {
-        console.log('submit Url.findOne url = ' + url + ' err = ' + JSON.stringify(err));
         if (err) {
             console.log('err getting url');
             res.status(500);
             return res.end();
         }
         if (url) {
-            return res.redirect(url.destinationUrl);
+            return res.json(200, {
+                url: url.destinationUrl,
+                message: 'success'
+            });
         } else {
-            console.log('about to shorten.shorten on sourceUrl = ' + sourceUrl);
             shortener.shorten(sourceUrl, function(destinationUrl, err) {
                 if (!destinationUrl) {
                     console.log('destinationUrl is null!');
@@ -62,14 +63,11 @@ exports.redirect = function (req, res) {
     var destinationUrl = req.params.destinationUrl;
     console.log('destinationUrl = ' + destinationUrl);
     Url.findOne({destinationUrl: destinationUrl}, function(err, url) {
-        if (err) {
+        console.log('redirect findOne err = ' + err + ' url = ' + JSON.stringify(url));
+        if (url) {
+            return res.redirect(url.sourceUrl);
         } else {
-            if (url) {
-                return res.json(200, {
-                    message: 'success',
-                    url: destinationUrl
-                });
-            }
+            return res.json(500, {});
         }
     });
 };
