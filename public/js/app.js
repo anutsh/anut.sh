@@ -60,9 +60,11 @@ $(function () {
             }
 
             $links.removeClass('hide');
-            $ul.append($clone);
+            $ul.prepend($clone);
 
             $input.attr('id', 'link' + links);
+            $input.val('squirrels');
+            $input.focus().select();
             $button.data('clipboard-target', 'link' + links);
 
             new ZeroClipboard($button[0], {
@@ -160,4 +162,6 @@ $(function () {
     //
     // Setup Copy & Paste
     //
+
+    $url.focus();
 });
