@@ -20,7 +20,7 @@ function getFrequencyMap(words) {
 
     return {
         frequencyMap: frequencyMap,
-        totalTermCount: words.length
+            totalTermCount: words.length
     };
 }
 
@@ -70,10 +70,13 @@ shortener.shorten = function (url, cb) {
 
 shortener.extract = function (url, cb) {
     var content = request(url, function (err, res, body) {
-        readability.parse(body, url, function (result) {
-            var article = S(result.content).stripTags();
-            cb.call(this, article);
-        });
+        var tagRegex = /(<([^>]+)>)/ig;
+        article = body.replace(tagRegex, "<>");
+        var textRegex = /[a-zA-Z]+?[^<>/()\n\r]+?([a-zA-Z]+\s){3}[^<>/()\n\r]+/g;
+        article = article.match(textRegex).join(" ");
+        article = article.replace(/[^-_a-zA-Z0-9\']+?/g, " ");
+        article = article.replace(/[ ]+/g, " ");
+        cb.call(this, article);
     });
 };
 
@@ -88,8 +91,8 @@ shortener.filter = function (content, cb) {
 shortener.tfidf = function (words, cb) {
     var freqMapObject = getFrequencyMap(words);
     tfidf.getScoreMap(freqMapObject.frequencyMap, 
-        freqMapObject.totalTermCount, function(scoreMap) {
-        cb.call(this, getSortedScoreMap(scoreMap));
-    });
+            freqMapObject.totalTermCount, function(scoreMap) {
+                cb.call(this, getSortedScoreMap(scoreMap));
+            });
 };
 exports.shorten = shortener.shorten;
