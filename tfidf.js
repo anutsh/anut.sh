@@ -6,10 +6,12 @@ function updateBackground (documentTerms, cb) {
     var keysServiced = 0;
     var documentTermsLength = Object.keys(documentTerms).length;
     for (var key in documentTerms) {
+        if (key === "hasOwnProperty") continue;
+        console.log(documentTerms);
         var value = parseInt(documentTerms[key], 10);
         totalVal += value;
 
-        (function(key) {
+        (function(key, totalVal) {
             redis.get(key, function (err, res) {
                 var delta = 0;
                 if(res === null) {
@@ -23,9 +25,10 @@ function updateBackground (documentTerms, cb) {
                     }
                     keysServiced++;
                     if (keysServiced === documentTermsLength) {
+                        console.log('last call');
                         redis.get("TOTAL_KEY", function (err, res) {
                             var totalKeyDelta = 0;
-                            if(res === null) {
+                            if(res === null || isNaN(res)) {
                                 // key does not exist. set a new key-value pair.
                                 totalKeyDelta = totalVal;
                             } else {
@@ -36,13 +39,14 @@ function updateBackground (documentTerms, cb) {
                                 if (err) {
                                     // TODO: log error
                                 }
+
                                 return cb(totalKeyDelta, documentTermsLength);
                             });
                         });
                     }
                 });
             });
-        })(key);
+        })(key, totalVal);
     }
 }
 

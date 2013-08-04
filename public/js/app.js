@@ -131,7 +131,7 @@ $(function () {
                 return;
             }
 
-            if (url != previous) {
+            if (url !== previous) {
                 url = previous;
                 // Reset everything
                 $links.find('.link').remove();
@@ -189,7 +189,7 @@ $(function () {
             $tag.fadeIn(400);
         });
     }, isUrl = function (url) {
-		var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+		var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
     	return regexp.test(url);
 	}, shakeNuts = {
         start: function () {

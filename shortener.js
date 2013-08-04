@@ -1,5 +1,4 @@
 var fs = require('fs'),
-    readability = require('readability'),
     natural = require('natural'),
     restler = require('restler'),
     S = require('string'),
@@ -11,11 +10,10 @@ function getFrequencyMap(words) {
     var totalTermCount = 0;
 
     for (var i = 0; i < words.length; i++) {
-        if(frequencyMap[words[i]] === undefined) {
-            frequencyMap[words[i]] = 1;
-        } else {
-            frequencyMap[words[i]] += 1;
+        if (!frequencyMap.hasOwnProperty(words[i])) {
+            frequencyMap[words[i]] = 0;
         }
+        frequencyMap[words[i]] += 1;
     }
 
     return {
