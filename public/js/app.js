@@ -8,7 +8,8 @@ $(function () {
         $tag = $('#tag'),
         $status = $('#status'),
         $nut = $('.logo .nut img'),
-        links = 0;
+        links = 0,
+        previous;
 
     var options = {
         host: 'http://anut.sh/',
@@ -63,6 +64,8 @@ $(function () {
             }
 
             $links.removeClass('hide');
+
+            $clone.addClass('link');
             $ul.prepend($clone);
 
             $input.attr('id', 'link' + links);
@@ -128,8 +131,17 @@ $(function () {
                 return;
             }
 
+            if (url != previous) {
+                url = previous;
+                // Reset everything
+                $links.find('.link').remove();
+                $status.text('');
+                links = 0;
+            }
+
             console.log('Silent search called');
             silent.finished = undefined;
+            previous = url;
 
             $btn.unbind();
             $btn.click(silent.press);
