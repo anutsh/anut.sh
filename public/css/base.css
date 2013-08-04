@@ -50,7 +50,11 @@ p.nice {
 }
 
 .link button {
-    background-color: #758918;
+    background-color: #568918;
+}
+
+.link button:hover {
+    background-color: #2a7214;
 }
 
 #template {

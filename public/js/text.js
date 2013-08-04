@@ -2,18 +2,19 @@
     var ask = {
         first: [
             "how does this look?",
-            "we know just what you want",
+            "we know just what you want.",
 			"like this nut?",
-			"that looks delicious",
+			"that looks delicious.",
 			"doesn't this look good?",
-			"I like it, don't you",
+			"i like it, don't you.",
+			"pretty nuts, right?",
         ],
         multiple: [
             "can i ever satisfy you?",
 			"you don't seem particularly satisfied...",
             "let's be serious now, nuts are nuts.",
             "why can't you just be happy with what you have?",
-            "my ex-squirrel was just like you",
+            "my ex-squirrel was just like you.",
 			"here are some different nuts for you.",
 			"what do you think of these?",
 			"last nut was just as delicious.",
@@ -29,7 +30,7 @@
 			"flying squirrels can be nocturnal.",
 			"did you know that ducks also eat acorns?",
 			"pigs and bears also eat nuts.",
-			"flying squirrels can be nocturnal",
+			"flying squirrels can be nocturnal.",
         ],
     };
 

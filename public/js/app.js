@@ -44,6 +44,9 @@ $(function () {
     }, submit = {
         press: function () {
             var $this = $(this);
+            var $clone = $tmpl.clone().attr('id', ''),
+                $button = $clone.find('button'),
+                $input = $clone.find('input');
 
             console.log('Submit button pressed');
 
@@ -57,11 +60,16 @@ $(function () {
             }
 
             $links.removeClass('hide');
-            $ul.append($tmpl.clone().attr('id', ''));
+            $ul.append($clone);
+
+            $input.attr('id', 'link' + links);
+            $button.data('clipboard-target', 'link' + links);
+
+            new ZeroClipboard($button[0], {
+                moviePath: "/lib/zeroclipboard/ZeroClipboard.swf"
+            });
 
             links += 1;
-
-            $this.data('links', links);
 
             loading.start();
 
@@ -148,4 +156,8 @@ $(function () {
     //
 
     setTimeout(tagline, options.taglineChange * 1000);
+
+    //
+    // Setup Copy & Paste
+    //
 });
