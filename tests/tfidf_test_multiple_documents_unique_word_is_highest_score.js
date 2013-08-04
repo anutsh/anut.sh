@@ -22,6 +22,7 @@ function runTest() {
                 }
             }
             console.log('Test has pased: ' + (fail === false));
+            process.exit();
         });
     });
 }
