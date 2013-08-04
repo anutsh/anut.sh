@@ -66,10 +66,18 @@ $(function () {
             $input.attr('id', 'link' + links);
             $input.val(options.host + url);
             $input.focus().select();
-            $button.data('clipboard-target', 'link' + links);
-			
-			var clip = new ZeroClipboard();
-			clip.setText= $links.val();
+
+            $button.attr('data-clipboard-text', options.host + url);
+
+            var clip = new ZeroClipboard($button[0], {
+                moviePath: "/lib/zeroclipboard/ZeroClipboard.swf"
+            });
+
+            clip.on('complete', function () {
+                $(this).button('toggle')
+                       .text('Copied')
+                       .prop('disabled', true);
+            });
 
             links += 1;
         }
