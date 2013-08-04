@@ -43,8 +43,6 @@ exports.submit = function (req, res) {
             newUrl.save(function saveUrl(err) {
                 if (err) {
                     console.log('error saving new url ' + JSON.stringify(err));
-                    res.status(500);
-                    return res.end();
                 }
                 return res.json(200, {
                     'message': message,
