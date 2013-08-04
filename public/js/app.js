@@ -9,6 +9,7 @@ $(function () {
         links = 0;
 
     var options = {
+        host: 'http://anut.sh/',
         taglineChange: 5,
         submit: '/',
         delay: 350,
@@ -59,7 +60,7 @@ $(function () {
             $ul.prepend($clone);
 
             $input.attr('id', 'link' + links);
-            $input.val('squirrels');
+            $input.val(options.host + url);
             $input.focus().select();
             $button.data('clipboard-target', 'link' + links);
 			
