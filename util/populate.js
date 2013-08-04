@@ -55,3 +55,29 @@ redis.flushall(function(){
     process.exit();
 });
 
+<<<<<<< HEAD
+=======
+function makeRequests(urls) {
+    if (!urls || urls.length === 0) {
+        process.exit();
+    }
+    var url = urls.pop();
+    console.log('Making request to url ' + url);
+    request.post(ENDPOINT, {form: {url: url}}, function(err, res, body) {
+        if (err) {
+            console.log('ERROR on url ' + url + ' err = ' + JSON.stringify(err));
+        }
+        try {
+            body = JSON.parse(body);
+            if (body && body.url) {
+                console.log('SUCCESS url = ' + url + ' nutsh url = ' + body.url);
+            }
+        } catch(e) {
+            // do nothing, fuck it
+        }
+        makeRequests(urls);
+    });
+}
+
+makeRequests(urls);
+>>>>>>> ae400e2e27905deb673a9d87d2351af58aebc714
