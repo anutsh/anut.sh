@@ -10,7 +10,7 @@ function getFrequencyMap(words) {
     var totalTermCount = 0;
 
     for (var i = 0; i < words.length; i++) {
-        if (!frequencyMap.hasOwnProperty(words[i])) {
+        if (frequencyMap[words[i]] === undefined ) {
             frequencyMap[words[i]] = 0;
         }
         frequencyMap[words[i]] += 1;
@@ -23,7 +23,6 @@ function getFrequencyMap(words) {
 }
 
 function getSortedScoreMap(scoreMap) {
-    console.log('scoreMap = ' + JSON.stringify(scoreMap));
     var sortable = [];
     for (var key in scoreMap) {
         if (scoreMap[key] !== undefined) {
@@ -74,7 +73,6 @@ shortener.extract = function (url, cb) {
         var textRegex = /[a-zA-Z]+?[^<>/()\n\r]+?([a-zA-Z]+\s){3}[^<>/()\n\r]+/g;
         var match = article.match(textRegex);
         if (!match) {
-            console.log('article = ' + article);
         }
         article = match.join(" ");
         article = article.replace(/[^-_a-zA-Z\']+?/g, " ");

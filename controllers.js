@@ -21,12 +21,12 @@ exports.submit = function (req, res) {
     console.log('processing ' + sourceUrl);
     Url.findOne({sourceUrl: sourceUrl}, function(err, url) {
         if (err) {
-            console.log('error searching gfor url' + JSON.stringify(err));
+            console.log('err getting url');
             res.status(500);
             return res.end();
         }
         if (url) {
-            console.log('found pre-existing url url = ' + JSON.stringify(url));
+            console.log('already have ' + sourceUrl + ' in Mongo, returning cached contextual url');
             return res.json(200, {
                 'message': message,
                 'url': url.destinationUrl
@@ -43,6 +43,8 @@ exports.submit = function (req, res) {
             newUrl.save(function saveUrl(err) {
                 if (err) {
                     console.log('error saving new url ' + JSON.stringify(err));
+                    res.status(500);
+                    return res.end();
                 }
                 return res.json(200, {
                     'message': message,

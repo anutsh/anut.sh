@@ -7,7 +7,6 @@ function updateBackground (documentTerms, cb) {
     var documentTermsLength = Object.keys(documentTerms).length;
     for (var key in documentTerms) {
         if (key === "hasOwnProperty") continue;
-        console.log(documentTerms);
         var value = parseInt(documentTerms[key], 10);
         totalVal += value;
 
@@ -25,7 +24,6 @@ function updateBackground (documentTerms, cb) {
                     }
                     keysServiced++;
                     if (keysServiced === documentTermsLength) {
-                        console.log('last call');
                         redis.get("TOTAL_KEY", function (err, res) {
                             var totalKeyDelta = 0;
                             if(res === null || isNaN(res)) {
@@ -64,6 +62,7 @@ tfidf.getScoreMap = function (documentTerms, totalTermCount, cb) {
                     score[key] = ((value+1)/(backgroundTotal+20000)) / totalTermCount / parseInt(res, 10);
                     keysServiced ++;
                     if (keysServiced === documentTermsLength) {
+                        console.log('keysServiced == documentTermsLength');
                         return cb(score);
                     }
                 });
