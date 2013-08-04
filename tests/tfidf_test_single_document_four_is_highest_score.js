@@ -1,6 +1,15 @@
 var tfidf = require('../tfidf');
 var redis = require('redis').createClient();
 
+var documents = [];
+documents.push({
+    'one': 1,
+    'two': 1,
+    'three': 1,
+    'four': 5
+});
+
+
 function runTest() {
     var totalTermCount = 0;
     for (var prop in documents[documents.length - 1]) {
@@ -21,14 +30,6 @@ function runTest() {
         console.log('Test has pased: ' + (fail === false));
     });
 }
-
-var documents = [];
-documents.push({
-    'one': 1,
-    'two': 1,
-    'three': 1,
-    'four': 5
-});
 
 var keysServiced = 0;
 for (var key in documents[documents.length - 1]) {
