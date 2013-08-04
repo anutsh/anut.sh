@@ -34,18 +34,26 @@ var urls = [
     'http://www.wired.com/autopia/2013/08/current-affair-2/'
 ];
 
-for (var i = 0; i < urls.length; i++) {
-    var urlsServiced = 0;
-    (function(i) {
-        setTimeout(function() {
-            console.log('making request to ' + urls[i]);
-            request.post(ENDPOINT, {form:{url: urls[i]}}, function(error, response, body) {
-                console.log('response = ' + (body));
-                urlsServiced++;
-                if (urlsServiced === urls.length) {
-                    process.exit();
-                }
-            });
-        }, 500);
-    })(i);
+function makeRequests(urls) {
+    if (!urls || urls.length === 0) {
+        process.exit();
+    }
+    var url = urls.pop();
+    console.log('Making request to url ' + url);
+    request.post(ENDPOINT, {form: {url: url}}, function(err, res, body) {
+        if (err) {
+            console.log('ERROR on url ' + url + ' err = ' + JSON.stringify(err));
+        }
+        try {
+            body = JSON.parse(body);
+            if (body && body.url) {
+                console.log('SUCCESS url = ' + url + ' nutsh url = ' + body.url);
+            }
+        } catch(e) {
+            // do nothing, fuck it
+        }
+        makeRequests(urls);
+    });
 }
+
+makeRequests(urls);
