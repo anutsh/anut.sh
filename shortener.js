@@ -60,7 +60,7 @@ shortener.shorten = function (url, cb) {
     }
 
     shortener.extract(url, function (article) {
-        shortener.filter(article.s, function(words) {
+        shortener.filter(article, function(words) {
             shortener.tfidf(words, function (sortedScoreMap) {
                 cb.call(this, shortener.create(sortedScoreMap), undefined);
             });
@@ -71,7 +71,7 @@ shortener.shorten = function (url, cb) {
 shortener.extract = function (url, cb) {
     var content = request(url, function (err, res, body) {
         var tagRegex = /(<([^>]+)>)/ig;
-        article = body.replace(tagRegex, "<>");
+        var article = body.replace(tagRegex, "<>");
         var textRegex = /[a-zA-Z]+?[^<>/()\n\r]+?([a-zA-Z]+\s){3}[^<>/()\n\r]+/g;
         article = article.match(textRegex).join(" ");
         article = article.replace(/[^-_a-zA-Z0-9\']+?/g, " ");
