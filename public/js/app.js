@@ -129,7 +129,7 @@ $(function () {
             console.log('error in submit');
             silent.loading = false;
             loading.done();
-			$status.text("we couldn't find your page...");
+            $status.text(nutshell.nopage());
         },
     }, silent = {
         search: function () {
@@ -210,7 +210,7 @@ $(function () {
             silent.loading = false;
             silent.show = false;
 			loading.done();
-			$status.text("we couldn't find your page...");
+            $status.text(nutshell.nopage());
         },
     }, tagline = function () {
         $tag.fadeOut(400, function () {
