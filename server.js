@@ -45,7 +45,7 @@ app.configure(function (){
     //
 
     // Setup Favicon
-    app.use(express.favicon());
+    app.use(express.favicon('public/favicon.ico'));
 
     // Setup Logger
     app.use(express.logger('dev'));
