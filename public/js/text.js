@@ -56,7 +56,7 @@
     root.nutshell.ask = function (n) {
         var tagline;
 
-        if (n === 1) {
+        if (n === 0) {
             tagline = ask.first[random(ask.first.length)];
         } else {
             tagline = ask.multiple[random(ask.multiple.length)];

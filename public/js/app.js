@@ -9,7 +9,7 @@ $(function () {
         links = 0;
 
     var options = {
-        taglineChange: 10,
+        taglineChange: 5,
         submit: '/',
         delay: 350,
     };
