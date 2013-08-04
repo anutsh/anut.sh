@@ -40,7 +40,7 @@ function getSortedScoreMap(scoreMap) {
 
 // Get the first N most 'important' words and place them in 'mostImportantWords' array
 function getImportantTerms(sortedScoreMap) {
-    var sortedScoreSubset = sortedScoreMap.splice(1,7);
+    var sortedScoreSubset = sortedScoreMap.splice(1,4);
     var importantTerms = [];
     for (var i = 0; i < sortedScoreSubset.length; i++) {
         importantTerms.push(sortedScoreSubset[i][0]);
@@ -79,7 +79,7 @@ shortener.extract = function (url, cb) {
             console.log('article = ' + article);
         }
         article = match.join(" ");
-        article = article.replace(/[^-_a-zA-Z0-9\']+?/g, " ");
+        article = article.replace(/[^-_a-zA-Z\']+?/g, " ");
         article = article.replace(/[ ]+/g, " ");
         cb.call(this, article);
     });
