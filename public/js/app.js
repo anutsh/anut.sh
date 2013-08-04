@@ -1,5 +1,5 @@
 $(function () {
-    var $btn = $('#submit');
+    var $btn = $('#convert');
     var $url = $('#url');
 
     var options = {
