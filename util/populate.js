@@ -1,5 +1,8 @@
 var request = require('request');
+var redis = require('redis').createClient();
+
 var ENDPOINT = 'http://localhost:4000/';
+
 var urls = [
     'http://www.independent.ie/irish-news/courts/fbi-bids-to-extradite-largest-childporn-dealer-on-planet-29469402.html',
     'http://playdoh.readthedocs.org/en/latest/',
@@ -56,4 +59,7 @@ function makeRequests(urls) {
     });
 }
 
-makeRequests(urls);
+redis.flushall(function(){
+    makeRequests(urls);
+    process.exit();
+});

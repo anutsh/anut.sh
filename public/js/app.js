@@ -6,11 +6,14 @@ $(function () {
         $ul = $('.links ul'),
         $tag = $('#tag'),
         $status = $('#status'),
+        $nut = $('.logo .nut'),
         links = 0;
 
     var options = {
         host: 'http://anut.sh/',
         taglineChange: 5,
+        nutShake: 7,
+        nutAnimation: 5,
         submit: '/',
         delay: 350,
     };
@@ -160,7 +163,13 @@ $(function () {
     }, isUrl = function (url) {
 		var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
     	return regexp.test(url);
-	};
+	}, shakeNuts = function () {
+        $nut.addClass('animated');
+
+        var timeout = setTimeout(function () {
+            clearTimeout(timeout);
+        }, options.nutAnimation);
+    };
 
     //
     // Attach Event Handlers
@@ -178,6 +187,7 @@ $(function () {
     //
 
     setTimeout(tagline, options.taglineChange * 1000);
+    setTimeout(shakeNuts, options.nutShake * 1000);
 
     //
     // Setup Copy & Paste
