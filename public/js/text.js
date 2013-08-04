@@ -26,7 +26,7 @@
 			"I'm running out of nuts to give to you.",
 			"you're nuts.",
 			"you're seriously asking for more nuts?",
-			"did you know that squirrels are born naked, toothless, and blind?",
+			"squirrels are born naked, toothless, and blind?",
 			"flying squirrels can be nocturnal.",
 			"did you know that ducks also eat acorns?",
 			"pigs and bears also eat nuts.",
