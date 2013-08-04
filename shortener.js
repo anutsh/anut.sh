@@ -25,9 +25,10 @@ function getFrequencyMap(words) {
 }
 
 function getSortedScoreMap(scoreMap) {
+    console.log('scoreMap = ' + JSON.stringify(scoreMap));
     var sortable = [];
     for (var key in scoreMap) {
-        if (scoreMap.hasOwnProperty(key)) {
+        if (scoreMap[key] !== undefined) {
             sortable.push([key, scoreMap[key]]);
         }
     }
