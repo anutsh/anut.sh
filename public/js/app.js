@@ -127,7 +127,10 @@ $(function () {
             $tag.text(nutshell.tag());
             $tag.fadeIn(400);
         });
-    };
+    }, isUrl = function (url) {
+		var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+    	return regexp.test(s);
+	};
 
     //
     // Attach Event Handlers
