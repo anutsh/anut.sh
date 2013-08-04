@@ -36,11 +36,13 @@ $(function () {
             }
 
             $url.attr('disabled', false);
+            $btn.attr('disabled', false);
         },
         start: function () {
             loading.spinner = new Spinner(loading.spinOpts);
             loading.spinner.spin(loading.target);
             $url.attr('disabled', true);
+            $btn.attr('disabled', true);
         },
     }, ui = {
         results: function (url) {
@@ -76,7 +78,7 @@ $(function () {
             clip.on('complete', function () {
                 $(this).button('toggle')
                        .text('Copied')
-                       .prop('disabled', true);
+                       .attr('disabled', true);
             });
 
             links += 1;
