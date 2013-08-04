@@ -7,6 +7,8 @@
 {% block js %}
     <script type="text/javascript" src="/lib/spin/spin.min.js"></script>
     <script type="text/javascript" src="/lib/search/search.js"></script>
+    <script type="text/javascript" src="/js/text.js"></script>
+    <script type="text/javascript" src="/js/app.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -14,7 +16,7 @@
     <div class="row header">
         <div class="col-12">
             <img src="/img/logo.png" alt="In a Nutshell"/>
-            <p>where squirrels go to shorten urls.</p>
+            <p id="tag" class="nice">where squirrels go to shorten urls.</p>
         </div>
     </div>
 
@@ -25,22 +27,26 @@
                 <div class="input-group">
                     <input id="url" type="text" class="form-control">
                     <span class="input-group-btn">
-                        <button id="convert" class="btn btn-default" type="button">Stash</button>
+                        <button id="convert" class="btn btn-default" type="button" data-loading-text="Stashing...">Stash</button>
                     </span>
                 </div>
             </form>
             <!--should be a spinner right here-->
 
-            <ul class="links">
-                <li id="template">
-                    <div class="input-group">
-                        <input type="text" class="form-control">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Copy</button>
-                        </span>
-                    </div>
-                </li>
-            </ul>
+            <div class="links hide">
+                <p class="nice">how does this look?</p>
+
+                <ul>
+                    <li id="template" class="link">
+                        <div class="input-group">
+                            <input type="text" class="form-control">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Copy</button>
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
             <div class="footer">
                 Made by <a href="http://zdwolfe.net">Zach Wolfe</a>, <a href="http://joshldavis.com">Josh Davis</a>, <a href="http://daeyunshin.com/">Daeyun Shin</a>, <a href="http://linkedin.com/pub/hyung-won-scarlet-yang/69/1b9/86a/">Hyung Won Yang</a>.
             </div>

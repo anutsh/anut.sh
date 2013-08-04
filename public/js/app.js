@@ -1,6 +1,10 @@
 $(function () {
-    var $btn = $('#convert');
-    var $url = $('#url');
+    var $btn = $('#convert'),
+        $tmpl = $('#template'),
+        $url = $('#url'),
+        $links = $('.links'),
+        $ul = $('.links ul'),
+        $tag = $('#tag');
 
     var options = {
         submit: '/',
@@ -36,7 +40,22 @@ $(function () {
         }
     }, submit = {
         press: function () {
+            var $this = $(this),
+                links = $this.data('links') || 0;
+
             console.log('Submit button pressed');
+
+            if (links === 1) {
+                $links.children('p').text('how do these look?')
+            }
+
+            $links.removeClass('hide');
+            $ul.append($tmpl.clone().attr('id', ''));
+
+            links += 1;
+
+            $this.data('links', links);
+            return;
 
             loading.start();
 
