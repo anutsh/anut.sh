@@ -26,14 +26,17 @@ function getFrequencyMap(words) {
 
 function getSortedScoreMap(scoreMap) {
     var sortable = [];
+
     for (var key in scoreMap) {
         if (scoreMap[key] !== undefined) {
             sortable.push([key, scoreMap[key]]);
         }
     }
+
     sortable.sort(function(a, b) {
         return b[1] - a[1];
     });
+
     return sortable;
 }
 
@@ -41,9 +44,11 @@ function getSortedScoreMap(scoreMap) {
 function getImportantTerms(sortedScoreMap) {
     var sortedScoreSubset = sortedScoreMap.splice(1,NUM_TOKENS_TO_CONCAT);
     var importantTerms = [];
+
     for (var i = 0; i < sortedScoreSubset.length; i++) {
         importantTerms.push(sortedScoreSubset[i][0]);
     }
+
     return importantTerms;
 }
 
@@ -84,12 +89,12 @@ shortener.extract = function (url, cb) {
         var textRegex = /[a-zA-Z]+?[^<>/()\n\r]+?([a-zA-Z]+\s){3}[^<>/()\n\r]+/g;
         var match = article.match(textRegex);
 
-        if (!match)
-            match = url.match(/[a-zA-Z0-9]+/g);
+        if (!match) match = url.match(/[a-zA-Z0-9]+/g);
 
         article = match.join(" ");
         article = article.replace(/[^-_a-zA-Z\']+?/g, " ");
         article = article.replace(/[ ]+/g, " ");
+
         return cb.call(this, article);
     });
 };
@@ -103,6 +108,7 @@ shortener.filter = function (content, cb) {
 
     var tokenizer = new natural.WordTokenizer();
     var terms = tokenizer.tokenize(content);
+
     return cb.call(this, terms);
 };
 
@@ -114,4 +120,6 @@ shortener.tfidf = function (words, cb) {
                 cb.call(this, getSortedScoreMap(scoreMap));
             });
 };
+
+// Expose shorten to the outside world
 exports.shorten = shortener.shorten;
