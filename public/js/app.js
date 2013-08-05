@@ -218,8 +218,8 @@ $(function () {
             $tag.fadeIn(400);
         });
     }, isUrl = function (url) {
-		var regexp = /\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-    	return regexp.test(url);
+        var regexp = /\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+        return regexp.test(url);
 	}, shakeNuts = {
         start: function () {
             $nut.addClass('animated swing');
