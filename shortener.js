@@ -79,8 +79,8 @@ shortener.shorten = function (url, cb) {
 
 shortener.extract = function (url, cb) {
     restler.get(url).on('complete', function (data, response) {
-        if (response.statusCode === 500) {
-            console.log('response is not 201');
+        if (!response || response.statusCode === 500) {
+            console.log('response is 500');
             return cb.call(this, undefined, 'invalid url');
         }
 
