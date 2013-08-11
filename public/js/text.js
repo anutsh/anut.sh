@@ -95,8 +95,9 @@
 
     root.nutshell.error = function () {
         return err[random(err.length)];
-    }
+    };
+
 	root.nutshell.nopage = function () {
 		return nopage[random(nopage.length)];
-	}
+	};
 }(window));
