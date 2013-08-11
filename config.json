@@ -1,0 +1,12 @@
+{
+    "development": {
+        "db": {
+            "uri": "mongodb://localhost/anutsh_dev"
+        }
+    }, 
+    "production": {
+        "db": {
+            "uri": "mongodb://localhost/anutsh"
+        }
+    }
+}

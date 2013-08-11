@@ -9,12 +9,13 @@ var cons = require('consolidate'),
     mongoose = require('mongoose'),
     swig = require('swig'),
     // Local imports
+    config = require('./config'),
     routes = require('./routes'),
     models = require('./models'),
     filters = require('./filters');
 
-var db = mongoose.connect('mongodb://localhost/anutsh');
 var app = express();
+app.config = config[app.settings.env];
 
 app.configure(function (){
     //
@@ -73,6 +74,7 @@ app.configure('development', function (){
 //
 // Setup Database and Models
 //
+var db = mongoose.connect(app.config.db.uri);
 models.setup(db);
 
 //
