@@ -65,22 +65,28 @@ shortener.shorten = function (url, cb) {
     }
 
     shortener.extract(url, function (article, err) {
-        if (err) return cb.call(this, undefined, err);
-
-        shortener.filter(article, function(words, err) {
-            if (err) return cb.call(this, undefined, err);
-
-            shortener.tfidf(words, function (sortedScoreMap) {
-                cb.call(this, shortener.create(sortedScoreMap));
+        if (err) { 
+            return cb.call(this, undefined, err);
+        } else {
+            shortener.filter(article, function(words, err) {
+                if (err) {
+                    return cb.call(this, undefined, err);
+                } else {
+                    shortener.tfidf(words, function (sortedScoreMap) {
+                        cb.call(this, shortener.create(sortedScoreMap));
+                    });
+                }
             });
-        });
+        }
     });
 };
 
 shortener.extract = function (url, cb) {
     restler.get(url).on('complete', function (data, response) {
-        if (!response || response.statusCode === 500) {
-            console.log('response is 500');
+        if (!response || response.statusCode === 500 || 
+            response.statusCode === 400 ||
+            response.statusCode === 404) {
+            console.log('response is bad or 500');
             return cb.call(this, undefined, 'invalid url');
         }
 
