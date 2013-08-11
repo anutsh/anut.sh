@@ -16,18 +16,32 @@ exports.index = function (req, res) {
 
 function makeNewRedirectPair(sourceUrl, res) {
     shortener.shorten(sourceUrl, function(contextualUrl, err) {
-        var newUrl = new Url({
-            sourceUrl: sourceUrl,
-            contextualUrl: contextualUrl
-        });
-        newUrl.save(function(err) {
+        Url.findOne({contextualUrl: contextualUrl}, function(err, url) {
+            console.log('makeNewRedirectPair url = ' + JSON.stringify(url, null, 4));
+            console.log('makeNewRedirectPair err = ' + JSON.stringify(err, null, 4));
             if (err) {
-                return res.json(500, {message: 'internal error saving new url'});
-            } else {
+                return res.json(500, {message: 'internal error findOne url'});
+            }
+            if (url) {
+                // @TODO don't do this -- should check sourceUrl to see if they're same first
                 return res.json(200, {
-                    url: newUrl.contextualUrl
+                    url: url.contextualUrl
                 });
             }
+            var newUrl = new Url({
+                sourceUrl: sourceUrl,
+                contextualUrl: contextualUrl
+            });
+            newUrl.save(function(err) {
+                if (err) {
+                    console.log('makeNewRedirectPair err = ' + JSON.stringify(err, null, 4));
+                    return res.json(500, {message: 'internal error saving new url'});
+                } else {
+                    return res.json(200, {
+                        url: newUrl.contextualUrl
+                    });
+                }
+            });
         });
     });
 }
