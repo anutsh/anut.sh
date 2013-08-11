@@ -35,6 +35,8 @@ function makeNewRedirectPair(sourceUrl, res) {
 exports.submit = function (req, res) {
     var sourceUrl = req.body.url;
     Url.findOne({sourceUrl: sourceUrl}, function(err, url) {
+        console.log('submit url = ' + JSON.stringify(url, null, 4));
+        console.log('submit err = ' + JSON.stringify(err, null, 4));
         if (err) {
             return res.json(500, {message: 'internal error findOne url'});
         } else {
@@ -53,6 +55,8 @@ exports.redirect = function (req, res) {
     var contextualUrl = req.params.contextualUrl;
     console.log('contextualUrl ' + contextualUrl);
     Url.findOne({contextualUrl: contextualUrl}, function(err, url) {
+        console.log('redirect url = ' + JSON.stringify(url, null, 4));
+        console.log('redirect err = ' + JSON.stringify(err, null, 4));
         if (err) {
             // @TODO better error handling
             return res.json(500, {message: 'internal error'});
