@@ -14,61 +14,55 @@ exports.index = function (req, res) {
     res.render('index', context);
 };
 
+function makeNewRedirectPair(sourceUrl, res) {
+    shortener.shorten(sourceUrl, function(contextualUrl, err) {
+        var newUrl = new Url({
+            sourceUrl: sourceUrl,
+            contextualUrl: contextualUrl
+        });
+        newUrl.save(function(err) {
+            if (err) {
+                return res.json(500, {message: 'internal error saving new url'});
+            } else {
+                return res.json(200, {
+                    url: newUrl.contextualUrl
+                });
+            }
+        });
+    });
+}
+
 exports.submit = function (req, res) {
     var sourceUrl = req.body.url;
-    var message = "success";
-
-    console.log('processing ' + sourceUrl);
     Url.findOne({sourceUrl: sourceUrl}, function(err, url) {
         if (err) {
-            console.log('err getting url');
-            res.status(500);
-            return res.end();
-        }
-        if (url) {
-            return res.json(200, {
-                url: url.destinationUrl,
-                message: 'success'
-            });
+            return res.json(500, {message: 'internal error findOne url'});
         } else {
-            shortener.shorten(sourceUrl, function(destinationUrl, err) {
-                if (!destinationUrl) {
-                    console.log('destinationUrl is null!');
-                    res.status(500);
-                    return res.end();
-                } else {
-                    var newUrl = new Url({
-                        sourceUrl: sourceUrl,
-                        destinationUrl: destinationUrl
-                    });
-                    console.log('shortener shorten callback about to save newUrl = ' + JSON.stringify(newUrl));
-                    newUrl.save(function(err) {
-                        if (err) {
-                            console.log('error saving to mongodb' + JSON.stringify(err));
-                            return res.status(500, {message: 'error saving data'});
-                        } else {
-                            console.log('mongo should have created doc with destinationUrl ' + newUrl.destinationUrl);
-                            return res.json(200, {
-                                message: message,
-                                url: destinationUrl
-                            });
-                        }
-                    });
-                }
-            });
+            if (url) {
+                return res.json(200, {
+                    url: url.contextualUrl
+                });
+            } else {
+                makeNewRedirectPair(sourceUrl, res);
+            }
         }
     });
 };
 
 exports.redirect = function (req, res) {
-    var destinationUrl = req.params.destinationUrl;
-    console.log('destinationUrl = ' + destinationUrl);
-    Url.findOne({destinationUrl: destinationUrl}, function(err, url) {
-        console.log('redirect findOne err = ' + err + ' url = ' + JSON.stringify(url));
-        if (url) {
-            return res.redirect(url.sourceUrl);
+    var contextualUrl = req.params.contextualUrl;
+    console.log('contextualUrl ' + contextualUrl);
+    Url.findOne({contextualUrl: contextualUrl}, function(err, url) {
+        if (err) {
+            // @TODO better error handling
+            return res.json(500, {message: 'internal error'});
         } else {
-            return res.json(500, {});
+            if (url) {
+                return res.redirect(url.sourceUrl);
+            } else {
+                // @TODO better error handling
+                return res.json(404, {message: 'not found'});
+            }
         }
     });
 };

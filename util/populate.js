@@ -83,7 +83,4 @@ function makeRequests(urls) {
         makeRequests(urls);
     });
 }
-
-redis.flushall(function(){
-    makeRequests(urls);
-});
+makeRequests(urls);

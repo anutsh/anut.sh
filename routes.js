@@ -12,7 +12,7 @@ var routes = [
         method: 'post'
     },
     {
-        url: '/:destinationUrl',
+        url: '/:contextualUrl',
         handler: controllers.redirect,
         method: 'get'
     }
