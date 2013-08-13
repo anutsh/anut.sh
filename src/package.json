@@ -1,6 +1,6 @@
 {
-    "name": "ducking-dubstep",
-    "version": "0.0.1",
+    "name": "anut.sh",
+    "version": "0.0.2",
     "description": "Facebook Seattle Summer 2013 Hackathon Project",
     "main": "server.js",
 
@@ -10,7 +10,7 @@
 
     "repository": {
         "type": "git",
-        "url": "git://github.com/jdavis/ducking-dubstep.git"
+        "url": "git://github.com/zdwolfe/anut.sh.git"
     },
 
     "author": "",
@@ -19,7 +19,7 @@
     "gitHead": "cacde63fb32161e37f79886d7e1ec09fe399ff73",
 
     "bugs": {
-        "url": "https://github.com/jdavis/ducking-dubstep/issues"
+        "url": "https://github.com/zdwolfe/anut.sh/issues"
     },
 
     "devDependencies": {
@@ -40,6 +40,6 @@
         "string": "~1.5.0",
         "mongoose": "*",
         "redis": "~0.8.4",
-        "hiredis":"~0.1.15" 
+        "hiredis":"~0.1.15"
     }
 }
