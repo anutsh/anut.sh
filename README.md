@@ -1,4 +1,4 @@
-ducking-dubstep
+anut.sh
 ===============
 
 Repository for the 2013 Summer Hackathon at Facebook Seattle.
