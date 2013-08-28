@@ -1,0 +1,18 @@
+#!/bin/bash
+logFile=/home/anutsh/log/git.log
+touch $logFile
+liveDirectory=/home/anutsh/live
+liveBranch='live'
+currentDate=`date -u +%Y-%m-%dT%T.%3NZ`
+branch=$(git rev-parse --symbolic --abbrev-ref $1)
+echo "git post-update to branch '$branch' at $currentDate" >> $logFile
+if [ "$branch" == "$liveBranch" ] 
+then
+	echo "git post-update about to update live directory $liveDirectory" >> $logFile
+	export GIT_WORK_TREE=$liveDirectory 
+	cd $liveDirectory
+	git config receive.denyCurrentBranch warn
+	git checkout -f $liveBranch
+	sudo stop anut.sh
+	sudo start anut.sh
+fi
